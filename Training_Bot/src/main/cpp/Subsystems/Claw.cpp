@@ -5,13 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Subsystems/ExampleSubsystem.h"
+#include "Subsystems/Claw.h"
 
 #include "RobotMap.h"
 
-ExampleSubsystem::ExampleSubsystem() : frc::Subsystem("ExampleSubsystem") {}
+Claw::Claw() : frc::Subsystem("Claw") {
+  
+}
 
-void ExampleSubsystem::InitDefaultCommand() {
+void Claw::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
 }

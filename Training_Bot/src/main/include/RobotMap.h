@@ -23,3 +23,5 @@
 // number and the module. For example you with a rangefinder:
 // constexpr int kRangeFinderPort = 1;
 // constexpr int kRangeFinderModule = 1;
+
+static WPI_TalonSRX* claw_motor; 

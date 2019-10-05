@@ -10,7 +10,7 @@
 #include <Commands/Scheduler.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-ExampleSubsystem Robot::m_subsystem;
+Claw Robot::m_subsystem;
 OI Robot::m_oi;
 
 void Robot::RobotInit() {

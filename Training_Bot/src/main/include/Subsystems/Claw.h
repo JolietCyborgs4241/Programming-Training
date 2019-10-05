@@ -6,15 +6,21 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-
+#include "frc/WPLib.h"
 #include <Commands/Subsystem.h>
+#include "ctre/Phoenix.h"
+using namespace frc;
 
-class ExampleSubsystem : public frc::Subsystem {
+class Claw : public frc::Subsystem {
  public:
-  ExampleSubsystem();
+  Claw();
+  void ClawOpen(); 
+  void ClawClose();
   void InitDefaultCommand() override;
 
- private:
+ private: 
+  WPI_TalonSRX* claw_motor;
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+
 };
