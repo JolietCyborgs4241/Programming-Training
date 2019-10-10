@@ -9,6 +9,11 @@
 
 #include <WPILib.h>
 
+
+
 OI::OI() {
   // Process operator interface input here.
+XboxController = new Joystick(0)
+A = new JoystickButton(XboxController,1);
+B = new JoystickButton(XboxControler,2);
 }

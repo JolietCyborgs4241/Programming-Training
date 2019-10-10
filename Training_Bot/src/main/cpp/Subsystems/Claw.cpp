@@ -10,7 +10,7 @@
 #include "RobotMap.h"
 
 Claw::Claw() : frc::Subsystem("Claw") {
-  
+  claw_motor = RobotMap:: claw_motor;
 }
 
 void Claw::InitDefaultCommand() {
@@ -19,4 +19,12 @@ void Claw::InitDefaultCommand() {
 }
 
 // Put methods for controlling this subsystem
-// here. Call these from Commands.
+// here. Call these from Command
+
+void Claw::ClawOpen(){
+  claw_motor->Set(.5);
+}
+
+void Claw::ClawClose(){
+  claw_motor->Set(-.5);
+}

@@ -9,9 +9,9 @@
 
 #include <Commands/Command.h>
 
-class ExampleCommand : public frc::Command {
+class ClawClose : public frc::Command {
  public:
-  ExampleCommand();
+  ClawClose();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
