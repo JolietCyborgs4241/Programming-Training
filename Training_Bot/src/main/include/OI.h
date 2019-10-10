@@ -6,8 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include "frc/WPILib.h"
+ using namespace frc;
 
 class OI {
+private:
+Joystick* XboxController;
+JoystickButton* ControlX;
+JoystickButton* ControlY;
+
  public:
   OI();
 };

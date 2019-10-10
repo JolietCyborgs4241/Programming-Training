@@ -5,21 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Subsystems/Lift.h"
-#include "RobotMap.h"
-Lift::Lift() : Subsystem("ExampleSubsystem") {
-  Lift_motor = RobotMap::Lift_motor;
-  }
-void Lift::LiftUp() {
-  Lift_motor->Set(1);
-}
-void Lift::LiftDown() {
-  Lift_motor->Set(-1);
-}
-void Lift::InitDefaultCommand() {
-  // Set the default command for a subsystem here.
-  // SetDefaultCommand(new MySpecialCommand());
-}
+#pragma once
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+#include <Commands/Command.h>
+
+class LiftDown : public frc::Command {
+ public:
+  LiftDown();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};
