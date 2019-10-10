@@ -9,6 +9,9 @@
 
 #include <WPILib.h>
 
+#include "Commands/ClawOpen.h"
+
+#include "Commands/ClawClose.h"
 
 
 OI::OI() {
@@ -16,4 +19,7 @@ OI::OI() {
 XboxController = new Joystick(0)
 A = new JoystickButton(XboxController,1);
 B = new JoystickButton(XboxControler,2);
+A->WhileHeld (new ClawOpen);
+B->WhileHeld (new ClawClose);
+
 }
