@@ -7,12 +7,19 @@
 
 #include "OI.h"
 #include <WPILib.h>
-
-
+#include "Commands/LiftUp.h"
+#include "Commands/LiftDown.h"
 
 OI::OI() {
   XboxController = new Joystick(0)
   ControlX = new JoystickButton(XboxController, 3);
   ControlY = new JoystickButton(XboxController, 4);
+  ControlX->WhileHeld(new LiftUp);
+  ControlY->WhileHeld(new LiftDown);
+
+
+
+
+
   // Process operator interface input here.
 }

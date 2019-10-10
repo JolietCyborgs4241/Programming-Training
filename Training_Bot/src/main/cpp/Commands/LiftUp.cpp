@@ -6,17 +6,21 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Commands/LiftUp.h"
-
+#include "Robot.h"
 LiftUp::LiftUp() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  
 }
 
 // Called just before this Command runs the first time
 void LiftUp::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void LiftUp::Execute() {}
+void LiftUp::Execute() {
+  Robot::lift->LiftUp();
+
+}
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftUp::IsFinished() { return false; }

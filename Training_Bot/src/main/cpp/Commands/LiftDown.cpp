@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Commands/LiftDown.h"
+#include "Robot.h"
 
 LiftDown::LiftDown() {
   // Use Requires() here to declare subsystem dependencies
@@ -16,7 +17,9 @@ LiftDown::LiftDown() {
 void LiftDown::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void LiftDown::Execute() {}
+void LiftDown::Execute() {
+  Robot::lift->Liftdown();
+}
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftDown::IsFinished() { return false; }
