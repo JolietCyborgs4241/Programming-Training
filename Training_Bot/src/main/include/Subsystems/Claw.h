@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-#include "frc/WPLib.h"
+#include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include "ctre/Phoenix.h"
 using namespace frc;

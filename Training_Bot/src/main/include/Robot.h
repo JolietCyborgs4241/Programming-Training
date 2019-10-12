@@ -10,15 +10,12 @@
 #include <Commands/Command.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <TimedRobot.h>
-
-#include "Commands/ExampleCommand.h"
-#include "Commands/MyAutoCommand.h"
 #include "OI.h"
 #include "Subsystems/Claw.h"
 
 class Robot : public frc::TimedRobot {
  public:
-  static Claw claw;
+  static Claw* claw;
   static OI m_oi;
 
   void RobotInit() override;
@@ -34,8 +31,8 @@ class Robot : public frc::TimedRobot {
  private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
-  frc::Command* m_autonomousCommand = nullptr;
-  ExampleCommand m_defaultAuto;
-  MyAutoCommand m_myAuto;
-  frc::SendableChooser<frc::Command*> m_chooser;
+  //frc::Command* m_autonomousCommand = nullptr;
+  //ExampleCommand m_defaultAuto;
+  //myauto m_myAuto;
+  //frc::SendableChooser<frc::Command*> m_chooser; 
 };

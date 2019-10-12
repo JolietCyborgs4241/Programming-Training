@@ -4,9 +4,10 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+#include "WPILib.h"
+#include "ctre/Phoenix.h"
 #pragma once
-
+using namespace frc;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,5 +24,8 @@
 // number and the module. For example you with a rangefinder:
 // constexpr int kRangeFinderPort = 1;
 // constexpr int kRangeFinderModule = 1;
+class RobotMap {
+public:
+static WPI_TalonSRX* claw;
 
-static WPI_TalonSRX* claw_motor; 
+};
