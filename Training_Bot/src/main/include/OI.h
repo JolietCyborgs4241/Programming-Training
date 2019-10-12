@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-#include "frc/WPILib.h"
+#include "WPILib.h"
  using namespace frc;
 
 class OI {

@@ -8,13 +8,13 @@
 #include "Subsystems/Lift.h"
 #include "RobotMap.h"
 Lift::Lift() : Subsystem("ExampleSubsystem") {
-  Lift_motor = RobotMap::Lift_motor;
+  Lift_Motor = RobotMap::Lift_motor;
   }
 void Lift::LiftUp() {
-  Lift_motor->Set(1);
+  Lift_Motor->Set(1);
 }
 void Lift::LiftDown() {
-  Lift_motor->Set(-1);
+  Lift_Motor->Set(-1);
 }
 void Lift::InitDefaultCommand() {
   // Set the default command for a subsystem here.

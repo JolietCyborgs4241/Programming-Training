@@ -8,17 +8,17 @@
 #pragma once
 
 #include <Commands/Subsystem.h>
-#include <frc/WPIlib.h>
+#include <WPILib.h>
 #include <ctre/Phoenix.h>
 using namespace frc;
 class Lift : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-WPI_TalonSRX* Lift_motor;
+  WPI_TalonSRX* Lift_Motor;
  public:
   Lift();
   void LiftUp();
-  void Liftdown();
+  void LiftDown();
   void InitDefaultCommand() override;
 };
