@@ -5,26 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "OI.h"
+#pragma once
+
+#include <Commands/Subsystem.h>
 #include <WPILib.h>
-#include "Commands/LiftUp.h"
-#include "Commands/LiftDown.h"
-
-
-
-OI::OI() {
-  XboxController = new Joystick(0);
-  ControlX = new JoystickButton(XboxController, 3);
-  ControlY = new JoystickButton(XboxController, 4);
-  ControlX->WhileHeld(new LiftUp);
-  ControlY->WhileHeld(new LiftDown);
-
-
-
-
-
-  // Process operator interface input here.
-XboxController = new Joystick(0)
-A = new JoystickButton(XboxController,1);
-B = new JoystickButton(XboxControler,2);
-}
+#include <ctre/Phoenix.h>
+using namespace frc;
+class Lift : public frc::Subsystem {
+ private:
+  // It's desirable that everything possible under private except
+  // for methods that implement subsystem capabilities
+  WPI_TalonSRX* Lift_Motor;
+ public:
+  Lift();
+  void LiftUp();
+  void LiftDown();
+  void InitDefaultCommand() override;
+};

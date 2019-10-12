@@ -4,20 +4,17 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-#include "frc/WPILib.h"
+
 #pragma once
-using namespace frc;
-class OI {
-private:
-Joystick* XboxController;
-JoystickButton* ControlX;
-JoystickButton* ControlY;
 
+#include <Commands/Command.h>
+
+class LiftDown : public frc::Command {
  public:
-  OI();
-private: Joystick* XboxController
-JoystickButton* A;
-JoystickButton* B;
-
+  LiftDown();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 };
-

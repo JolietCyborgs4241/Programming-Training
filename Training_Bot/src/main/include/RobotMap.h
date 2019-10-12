@@ -6,7 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-
+#include "WPILib.h"
+#include "ctre/Phoenix.h"
+using namespace frc;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -24,4 +26,9 @@
 // constexpr int kRangeFinderPort = 1;
 // constexpr int kRangeFinderModule = 1;
 
-static WPI_TalonSRX* claw_motor; 
+
+class RobotMap {
+    public:
+    static WPI_TalonSRX* Lift_motor;
+    static WPI_TalonSRX* claw_motor; 
+};

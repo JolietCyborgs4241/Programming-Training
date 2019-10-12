@@ -12,6 +12,7 @@
 
 Claw Robot::m_subsystem;
 OI Robot::m_oi;
+Lift* Robot::lift;
 
 void Robot::RobotInit() {
   m_chooser.AddDefault("Default Auto", &m_defaultAuto);
