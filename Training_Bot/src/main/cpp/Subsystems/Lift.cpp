@@ -10,9 +10,11 @@
 Lift::Lift() : Subsystem("ExampleSubsystem") {
   Lift_Motor = RobotMap::Lift_motor;
   }
+  //Arm moves up at 100%
 void Lift::LiftUp() {
   Lift_Motor->Set(1);
 }
+//Arm moves down 100%
 void Lift::LiftDown() {
   Lift_Motor->Set(-1);
 }
