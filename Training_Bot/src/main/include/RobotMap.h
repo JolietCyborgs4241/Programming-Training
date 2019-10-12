@@ -4,7 +4,8 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+#include "WPILib.h"
+#include "ctre/Phoenix.h"
 #pragma once
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
@@ -25,6 +26,9 @@ using namespace frc;
 // number and the module. For example you with a rangefinder:
 // constexpr int kRangeFinderPort = 1;
 // constexpr int kRangeFinderModule = 1;
+class RobotMap {
+public:
+static WPI_TalonSRX* claw;
 
 
 class RobotMap {

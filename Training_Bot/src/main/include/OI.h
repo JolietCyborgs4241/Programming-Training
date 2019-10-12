@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-#include "frc/WPILib.h"
+#include "WPILib.h"
 #pragma once
 using namespace frc;
 class OI {
@@ -15,7 +15,7 @@ JoystickButton* ControlY;
 
  public:
   OI();
-private: Joystick* XboxController
+private: Joystick* XboxController;
 JoystickButton* A;
 JoystickButton* B;
 

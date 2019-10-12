@@ -14,3 +14,4 @@ using namespace frc;
 
 
 WPI_TalonSRX* RobotMap::Lift_motor = NULL;
+WPI_TalonSRX* RobotMap::claw = NULL;

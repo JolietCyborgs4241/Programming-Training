@@ -5,12 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Subsystems/Claw.h"
-
+#include "Subsystems\Claw.h"
+#include "OI.h"
 #include "RobotMap.h"
 
 Claw::Claw() : frc::Subsystem("Claw") {
-  claw_motor = RobotMap:: claw_motor;
+  claw_motor = RobotMap::claw;
 }
 
 void Claw::InitDefaultCommand() {
@@ -21,10 +21,11 @@ void Claw::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Command
 
+// Function below opens claw at 50% power
 void Claw::ClawOpen(){
   claw_motor->Set(.5);
 }
-
+//Function below closes claw at 50% power
 void Claw::ClawClose(){
   claw_motor->Set(-.5);
 }

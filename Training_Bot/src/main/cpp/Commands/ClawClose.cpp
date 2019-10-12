@@ -11,14 +11,16 @@
 
 ClawClose::ClawClose() {
   // Use Requires() here to declare subsystem dependencies
-  Requires(&Robot::m_subsystem);
+  
 }
 
 // Called just before this Command runs the first time
 void ClawClose::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ClawClose::Execute() {}
+void ClawClose::Execute() {
+  Robot::claw->ClawClose();
+}
 
 // Make this return true when this Command no longer needs to run execute()
 bool ClawClose::IsFinished() { return false; }

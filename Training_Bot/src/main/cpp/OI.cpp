@@ -10,6 +10,9 @@
 #include "Commands/LiftUp.h"
 #include "Commands/LiftDown.h"
 
+#include "Commands/ClawOpen.h"
+
+#include "Commands/ClawClose.h"
 
 
 OI::OI() {
@@ -24,7 +27,10 @@ OI::OI() {
 
 
   // Process operator interface input here.
-XboxController = new Joystick(0)
-A = new JoystickButton(XboxController,1);
-B = new JoystickButton(XboxControler,2);
+XboxController = new Joystick(0);
+A= new JoystickButton(XboxController,1);
+B= new JoystickButton(XboxController,2);
+A->WhileHeld (new ClawOpen);
+B->WhileHeld (new ClawClose);
+
 }
