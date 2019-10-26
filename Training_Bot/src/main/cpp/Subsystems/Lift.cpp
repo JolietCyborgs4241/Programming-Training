@@ -12,7 +12,7 @@ Lift::Lift() : Subsystem("ExampleSubsystem") {
   }
   //Arm moves up at 100%
 void Lift::LiftUp() {
-  Lift_Motor->Set(1);
+  Lift_Motor->Set(1); 
 }
 //Arm moves down 100%
 void Lift::LiftDown() {
