@@ -59,7 +59,7 @@ main() {
 // the modified array
 //
 // you should be able to manually confirm the results by looking
-// at them and ensuring the 0â€™s all moved to the front of the array
+// at them and ensuring the 0’s all moved to the front of the array
 
 void
 runTest(const char *name, int array[], int count) {
@@ -84,22 +84,23 @@ runTest(const char *name, int array[], int count) {
 
 // zerosToTheFront
 //
-// this is where youâ€™ll do the actual moving around of the data in
-// the array to get the 0â€™s moved to the front of the list
+// this is where you’ll do the actual moving around of the data in
+// the array to get the 0’s moved to the front of the list
 
 void
 zerosToTheFront(int array[], int count) {
 
     int Check, ZeroCount;
 
-    Check = 0; ZeroCount = 0;
+    Check = 0;
+   ZeroCount = 0;
 
-    if (array[Check] == 0) {
+    /*if (array[Check] == 0) {
 
-    Check++;
-    ZeroCount++;
-    }
-
+    Check = Check + 1;
+    ZeroCount= ZeroCount + 1;
+    }*/
+    if (count == 0){count++;}
     for (Check = 1; Check < count; Check++) {
 
     if (array[Check] == 0) {
@@ -110,7 +111,8 @@ zerosToTheFront(int array[], int count) {
    }
 
 
-    }}
+   }
+}
 
 
 
