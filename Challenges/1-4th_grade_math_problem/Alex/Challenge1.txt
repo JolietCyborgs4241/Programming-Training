@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+
+int i;
+int d;
+int val;
+int a;
+
+const int START = 123456789;
+const int END = 987654321;
+int digits[10];
+
+int main() {
+    for (i = START; i <= END; i++) {
+        int BadDigit;
+        if (i % 9) {
+            continue;
+        }
+        else if (i/10 % 8) {
+            continue;
+        }
+        else if (i/100 % 7) {
+            continue;
+        }
+        else if (i/1000 % 6) {
+            continue;
+        }
+        else if (i/10000 % 5) {
+            continue;
+        }
+        else if (i/100000 % 4) {
+            continue;
+        }
+        else if (i/1000000 % 3) {
+            continue;
+        }
+        else if (i/10000000 % 2) {
+            continue;
+        }
+        
+        for (d = 0; d < 10; d++) {
+            digits[d] = 0;
+        }
+        val = i;
+        BadDigit = 0;
+        for (a = 0; a < 9; a++) {
+            if (digits[val % 10] || val % 10 == 0) {
+                BadDigit++;
+                break;
+            }
+            else {
+                digits[val % 10]++;
+            }
+            val = val/10;
+        }
+        if (BadDigit > 0) {
+            continue;
+        }
+        
+        cout << "Solution is " << i << "\n";
+        exit(0);
+    }
+    cout << "No numbers found!\n";
+}
+    
