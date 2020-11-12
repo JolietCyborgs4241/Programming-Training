@@ -1,0 +1,11 @@
+#include <iostream>
+#include <cstudio>
+
+using namespace std;
+
+int main()
+{
+ int addition (int a, int b) {
+   return a+b;
+
+ }
