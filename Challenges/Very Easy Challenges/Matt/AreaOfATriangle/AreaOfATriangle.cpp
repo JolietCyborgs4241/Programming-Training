@@ -1,14 +1,14 @@
 #include <iostream>
 #include <conio.h>
 
-int triangleArea(double base, double height, double area)
+float triangleArea(float base, float height, float area)
 {
     area = base * height * .5;
 
     return area;
 }
 
-int base(double tempBase)
+float base(float tempBase)
 {
     printf("Enter in the base of the triangle: ");
 
@@ -19,7 +19,7 @@ int base(double tempBase)
     return tempBase;
 }
 
-int height(double tempHeight)
+float height(float tempHeight)
 {
     printf("Enter in the height of the triangle: ");
 
@@ -32,9 +32,7 @@ int height(double tempHeight)
 
 int main()
 {
-    system ("cls");
-
-    printf("The area of the triangle is: %d", triangleArea(base(NULL), height(NULL), NULL) );
+    printf("The area of the triangle is: %f", triangleArea(base(NULL), height(NULL), NULL) );
 
     while (kbhit() != 1);
 
