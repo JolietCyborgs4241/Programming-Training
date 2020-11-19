@@ -5,18 +5,22 @@ using namespace std;
 
 int main()
 {
-int x;
-int y;
+
 int sum;
+int num1;
+int num2;
 
-cout << "Input your two numbers" << endl;
+cout << "Input your first number and hit enter" << endl;
+cin >> num1;
+cout << "Input your first number and hit enter" << endl;
+cin >> num2;
 
-cin >> x;
-cin >> y;
+void twoNumberSum()
+{
 
-sum = x + y;
+}
 
-cout << x << "+" << y << "=" << sum;
+sum = twoNumberSum(num1, num2)
 
 
 return 0;
