@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+float base, height;
+
+float area() {
+    return base * height * 0.5;
+}
+
+int main() {
+    cout << "Enter the base of the triangle" << endl;
+    cin >> base;
+    cout << "Enter the height of the triangle" << endl;
+    cin >> height;
+    cout << area();
+
+    return 0;
+}
