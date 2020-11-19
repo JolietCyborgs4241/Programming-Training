@@ -20,4 +20,6 @@ cin >> num2;
 
 cout << num1 << "+" << num2 << "=" << twoNumberSum() << endl;
 
+
+return 0;
 }
