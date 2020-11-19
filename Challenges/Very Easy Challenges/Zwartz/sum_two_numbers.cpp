@@ -3,25 +3,21 @@
 
 using namespace std;
 
+int num1, num2;
+
+int twoNumberSum (){
+
+return num1 + num2;
+}
+
 int main()
 {
-
-int sum;
-int num1;
-int num2;
 
 cout << "Input your first number and hit enter" << endl;
 cin >> num1;
 cout << "Input your first number and hit enter" << endl;
 cin >> num2;
 
-void twoNumberSum()
-{
+cout << num1 << "+" << num2 << "=" << twoNumberSum() << endl;
 
-}
-
-sum = twoNumberSum(num1, num2)
-
-
-return 0;
 }
