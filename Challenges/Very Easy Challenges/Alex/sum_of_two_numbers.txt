@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+int num1, num2;
+
+int sum() {
+    return num1 + num2;
+}
+
+int main() {
+    cout << "Enter two numbers to be added" << endl;
+    cin >> num1;
+    cin >> num2;
+    cout << sum ();
+
+    return 0;
+}
