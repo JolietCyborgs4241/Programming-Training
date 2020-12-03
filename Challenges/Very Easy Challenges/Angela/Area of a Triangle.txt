@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+int area (int base, int height){
+    return base*height*0.5;
+}
+
+int main (){
+    int base, height;
+    cout<<"Enter base"<< endl;
+    cin>>base;
+    cout<<"Enter height"<< endl;
+    cin>>height;
+    cout<<"The area of your triangle is "<< area (base, height)<< endl;
+    
+    return 0;
+}
