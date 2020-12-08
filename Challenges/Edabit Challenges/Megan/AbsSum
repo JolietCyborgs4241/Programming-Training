@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+int main() {
+    int aSize; // size of the array 
+    int aValue; // the value of what would be in each position in the array 
+    cout<< " Size of array = " << endl; 
+    cin >> aSize; 
+int getAbsSum [aSize];
+
+
+for (int x= 0; x<=aSize; x++ ) {
+
+    cout<< "please enter a value for position " << x << " in your array of " << aSize << endl; 
+    cin >> aValue;
+    getAbsSum[x]=aValue; // gets the value for the position and adds it to the array 
+    
+}
+int sum=0;
+for (int i = 0; i <=aSize; i++){
+    if (getAbsSum[i]<0){
+        sum += -getAbsSum[i]; // if the vaule in the array is negative it will chnage it to a positve then add it 
+    }
+    else{
+        sum += getAbsSum[i];
+    }
+}
+cout << "absolute value is "<< sum << endl;
+return 0 ;
+
+}
