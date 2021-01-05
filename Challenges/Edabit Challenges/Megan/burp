@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <cstdio>
+
+using namespace std;
+
+int main () {
+    cout << "number of r's " << endl; 
+    string num;
+    cin>> num; 
+}
+std ::string longBurp (num){
+    std::string bu= "Bu";
+    std::string r; 
+    std::string p = "p";
+    for (int x = 0; x <= num; x++){ 
+        r = r + "r"; 
+    }
+    std::string burp = bu + r +p;
+    return burp;
+}
