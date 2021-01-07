@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+int main() {
+    int aSize; // size of the array 
+    int aValue; // the value of what would be in each position in the array 
+    cout<< " Size of array = " << endl; 
+    cin >> aSize; 
+int evenOddTransformation [aSize];
+
+
+for (int x= 0; x<aSize; x++ ) {
+
+    cout<< "please enter a value for position " << x << " in your array of " << aSize << endl; 
+    cin >> aValue;
+    evenOddTransformation[x]=aValue; // gets the value for the position and adds it to the array 
+    
+}
+int n;
+cout<< "HOw many times would you would you want he even-odd to run"<< endl;
+cin>> n; // sets n to how many times the array should be multiplyed 
+
+for (int i = 0; i< aSize; i++ ) {
+    if (evenOddTransformation[i] % 2 ==0){
+        evenOddTransformation[i] = evenOddTransformation[i] - (n*2); //subtracts 2 to each even interger
+    }
+    else {
+        evenOddTransformation [i] = evenOddTransformation [i] + (n*2);//   adds 2 to each odd interger 
+    }
+}
+return evenOddTransformation; 
+}
