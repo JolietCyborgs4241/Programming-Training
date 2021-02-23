@@ -17,4 +17,8 @@ TeleopArcadeDrive::TeleopArcadeDrive(
 
 void TeleopArcadeDrive::Execute() {
   m_drive->ArcadeDrive(m_xaxisSpeedSupplier(), m_zaxisRotateSupplier());
+
+  // std::cout << "Current X gyro angle = " << m_drive->GetGyroAngleX() << std::endl;
+  // std::cout << "Current Y gyro angle = " << m_drive->GetGyroAngleY() << std::endl;
+  // std::cout << "Current Z gyro angle = " << m_drive->GetGyroAngleZ() << std::endl;
 }
