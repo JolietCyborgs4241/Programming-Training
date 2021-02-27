@@ -17,8 +17,8 @@ class AutonomousDistance
  public:
   explicit AutonomousDistance(Drivetrain* drive) {
     AddCommands(
-        DriveDistance(0.50, 10_in, drive), TurnDegrees(0.5, 180_deg, drive),
-        DriveDistance(-0.50, 10_in, drive), TurnDegrees(-0.5, 180_deg, drive),
+        DriveDistance(0.70, 10_in, drive), TurnDegrees(0.3, 180_deg, drive),
+        DriveDistance(-0.60, 10_in, drive), TurnDegrees(-0.3, 180_deg, drive),
         DriveDistance(0.50, 10_in, drive));
   }
 };
