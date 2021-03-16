@@ -43,7 +43,7 @@ class RomiGyro {
    */
   double GetAngleZ();
 
-  frc::Rotation2d GetRotation2d();
+  //frc::Rotation2d GetRotation2d();
 
   /**
    * Resets the gyro

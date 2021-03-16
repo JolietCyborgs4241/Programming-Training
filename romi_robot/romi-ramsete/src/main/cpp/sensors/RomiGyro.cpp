@@ -80,7 +80,7 @@ void RomiGyro::Reset() {
   }
 }
 
-frc::Rotation2d RomiGyro::GetGyroAngle() {
-  
-  return frc::Rotation2d(units::degree_t GetAngleZ());
-}
+//frc::Rotation2d RomiGyro::GetGyroAngle() {
+//  
+// return frc::Rotation2d((units::degree_t) GetAngleZ());
+//}

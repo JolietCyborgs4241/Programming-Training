@@ -24,7 +24,7 @@ Drivetrain::Drivetrain() {
 
 void Drivetrain::Periodic() {
 
-  m_odometry.Update(m_gyro.GetRotation2d(),
+  m_odometry.Update(GetGyroAngle(),
                     units::meter_t(m_leftEncoder.GetDistance()),
                     units::meter_t(m_rightEncoder.GetDistance()));
 }
@@ -109,12 +109,12 @@ frc::Pose2d Drivetrain::GetPose() {
 }
 
 frc::Rotation2d Drivetrain::GetGyroAngle() {
-  return m_gyro.GetRotation2d();
+  return frc::Rotation2d((units::degree_t) m_gyro.GetAngleZ());
 }
 
 void Drivetrain::ResetOdometry(frc::Pose2d pose) {
   ResetEncoders();
-  m_odometry.ResetPosition(pose, m_gyro.GetRotation2d());
+  m_odometry.ResetPosition(pose, GetGyroAngle());
 }
 
 frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeeds() {
