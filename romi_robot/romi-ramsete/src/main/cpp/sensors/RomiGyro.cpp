@@ -66,7 +66,7 @@ double RomiGyro::GetAngleY() {
 
 double RomiGyro::GetAngleZ() {
   if (m_simAngleZ) {
-    return m_simAngleZ.Get() - m_angleZOffset;
+    return -(m_simAngleZ.Get() - m_angleZOffset);
   }
 
   return 0.0;

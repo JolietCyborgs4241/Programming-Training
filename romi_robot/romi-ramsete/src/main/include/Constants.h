@@ -47,6 +47,6 @@ namespace AutoConstants {
     constexpr double kRamseteB = 2;
     constexpr double kRamseteZeta = 0.7;
 
-    constexpr auto kMaxSpeed = 3_mps;
-    constexpr auto kMaxAcceleration = 3_mps_sq;
+    constexpr auto kMaxSpeed = 0.5_mps;
+    constexpr auto kMaxAcceleration = 0.5_mps_sq;
 }   // namespace AutoConstants
