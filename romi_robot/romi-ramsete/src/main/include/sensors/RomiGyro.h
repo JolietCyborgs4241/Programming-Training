@@ -4,7 +4,10 @@
 
 #pragma once
 
+
 #include <hal/SimDevice.h>
+
+
 
 class RomiGyro {
  public:
@@ -39,6 +42,8 @@ class RomiGyro {
    * Gets the currently reported angle around the X-axis
    */
   double GetAngleZ();
+
+  frc::Rotation2d GetRotation2d();
 
   /**
    * Resets the gyro

@@ -4,6 +4,8 @@
 
 #include "sensors/RomiGyro.h"
 
+
+
 RomiGyro::RomiGyro() : m_simDevice("Gyro:RomiGyro") {
   if (m_simDevice) {
     m_simDevice.CreateBoolean("init", hal::SimDevice::kOutput, true);
@@ -76,4 +78,9 @@ void RomiGyro::Reset() {
     m_angleYOffset = m_simAngleY.Get();
     m_angleZOffset = m_simAngleZ.Get();
   }
+}
+
+frc::Rotation2d RomiGyro::GetGyroAngle() {
+  
+  return frc::Rotation2d(units::degree_t GetAngleZ());
 }

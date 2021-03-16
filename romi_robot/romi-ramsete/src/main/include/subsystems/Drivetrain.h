@@ -8,8 +8,12 @@
 #include <frc/Encoder.h>
 #include <frc/Spark.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <frc/kinematics/DifferentialDriveKinematics.h>
+#include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc2/command/SubsystemBase.h>
 #include <units/length.h>
+#include <units/velocity.h>
+#include <units/voltage.h>
 
 #include "sensors/RomiGyro.h"
 
@@ -32,6 +36,8 @@ class Drivetrain : public frc2::SubsystemBase {
    * @param zaxisRotate the commanded rotation
    */
   void ArcadeDrive(double xaxisSpeed, double zaxisRotate);
+
+  void TankDriveVolts(units::volt_t left, units::volt_t right);
 
   /**
    * Resets the drive encoders to currently read a position of 0.
@@ -73,6 +79,10 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   units::meter_t GetAverageDistance();
 
+  units::meters_per_second_t GetLeftVelocity();
+  units::meters_per_second_t GetRightVelocity();
+  units::meters_per_second_t GetAverageVelocity();
+
   /**
    * Returns the acceleration along the X-axis, in Gs.
    */
@@ -108,6 +118,15 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   void ResetGyro();
 
+  frc::Pose2d GetPose();
+
+  frc::Rotation2d GetGyroAngle();
+
+  void ResetOdometry(frc::Pose2d pose);
+
+  frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
+
+
  private:
   frc::Spark m_leftMotor{0};
   frc::Spark m_rightMotor{1};
@@ -116,6 +135,8 @@ class Drivetrain : public frc2::SubsystemBase {
   frc::Encoder m_rightEncoder{6, 7};
 
   frc::DifferentialDrive m_drive{m_leftMotor, m_rightMotor};
+  frc::DifferentialDriveOdometry m_odometry{GetGyroAngle()};
+
 
   RomiGyro m_gyro;
   frc::BuiltInAccelerometer m_accelerometer;

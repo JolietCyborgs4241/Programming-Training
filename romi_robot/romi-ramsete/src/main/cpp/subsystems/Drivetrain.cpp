@@ -23,11 +23,20 @@ Drivetrain::Drivetrain() {
 }
 
 void Drivetrain::Periodic() {
-  // This method will be called once per scheduler run.
+
+  m_odometry.Update(m_gyro.GetRotation2d(),
+                    units::meter_t(m_leftEncoder.GetDistance()),
+                    units::meter_t(m_rightEncoder.GetDistance()));
 }
 
 void Drivetrain::ArcadeDrive(double xaxisSpeed, double zaxisRotate) {
   m_drive.ArcadeDrive(xaxisSpeed, zaxisRotate);
+}
+
+void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
+  m_leftMotor.SetVoltage(left);
+  m_rightMotor.SetVoltage(-right);
+  //m_drive.Feed();
 }
 
 void Drivetrain::ResetEncoders() {
@@ -53,6 +62,18 @@ units::meter_t Drivetrain::GetRightDistance() {
 
 units::meter_t Drivetrain::GetAverageDistance() {
   return (GetLeftDistance() + GetRightDistance()) / 2.0;
+}
+
+units::meters_per_second_t Drivetrain::GetLeftVelocity() {
+  return units::meters_per_second_t(m_leftEncoder.GetRate());
+}
+
+units::meters_per_second_t Drivetrain::GetRightVelocity() {
+  return units::meters_per_second_t(m_rightEncoder.GetRate());
+}
+
+units::meters_per_second_t Drivetrain::GetAverageVelocity() {
+  return units::meters_per_second_t(GetLeftVelocity() + GetRightVelocity()) / 2.0;
 }
 
 double Drivetrain::GetAccelX() {
@@ -81,4 +102,22 @@ double Drivetrain::GetGyroAngleZ() {
 
 void Drivetrain::ResetGyro() {
   m_gyro.Reset();
+}
+
+frc::Pose2d Drivetrain::GetPose() {
+  return m_odometry.GetPose();
+}
+
+frc::Rotation2d Drivetrain::GetGyroAngle() {
+  return m_gyro.GetRotation2d();
+}
+
+void Drivetrain::ResetOdometry(frc::Pose2d pose) {
+  ResetEncoders();
+  m_odometry.ResetPosition(pose, m_gyro.GetRotation2d());
+}
+
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeeds() {
+    return { units::meters_per_second_t(m_leftEncoder.GetRate()),
+          units::meters_per_second_t(m_rightEncoder.GetRate() )};
 }
