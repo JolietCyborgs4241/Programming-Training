@@ -57,6 +57,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // Apply the voltage constraint
   config.AddConstraint(autoVoltageConstraint);
 
+#ifdef NEVER
   // An example trajectory to follow.  All units in feet.
   auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
       // Start at the origin facing the +X direction
@@ -67,6 +68,16 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       frc::Pose2d(6_ft, 0_m, frc::Rotation2d(0_deg)),
       // Pass the config
       config);
+#endif
+
+  // An example trajectory to follow.  All units in feet.
+  auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
+      frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
+      // Pass through these waypoints
+      {frc::Translation2d(4_ft, 0.0_ft)},
+      // End here facing in the same direction we started
+      frc::Pose2d(8_ft, 0_ft, frc::Rotation2d(0_deg)),
+      config);
 
   frc2::RamseteCommand ramseteCommand(
       exampleTrajectory, [this]() { return m_drive.GetPose(); },
@@ -76,8 +87,12 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
           DriveConstants::kS, DriveConstants::kV, DriveConstants::kA),
       DriveConstants::kDriveKinematics,
       [this] { return m_drive.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel,
+                          DriveConstants::kIDriveVel,
+                          DriveConstants::kDDriveVel),
+      frc2::PIDController(DriveConstants::kPDriveVel,
+                          DriveConstants::kIDriveVel,
+                          DriveConstants::kDDriveVel),
       [this](auto left, auto right) { m_drive.TankDriveVolts(left, right); },
       {&m_drive});
 

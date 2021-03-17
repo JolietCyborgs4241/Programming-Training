@@ -16,10 +16,13 @@ using namespace DriveConstants;
 // to use DIO pins 4/5 and 6/7 for the left and right
 Drivetrain::Drivetrain() {
   m_leftEncoder.SetDistancePerPulse(
-      wpi::math::pi * kWheelDiameter.to<double>() / kCountsPerRevolution);
+      wpi::math::pi * kWheelDiameter.to<double>() / kCountsPerWheelRevolution);
   m_rightEncoder.SetDistancePerPulse(
-      wpi::math::pi * kWheelDiameter.to<double>() / kCountsPerRevolution);
+      wpi::math::pi * kWheelDiameter.to<double>() / kCountsPerWheelRevolution);
   ResetEncoders();
+
+  std::cout << "m_leftEncoder.GetDistancePerPulse() = " << m_leftEncoder.GetDistancePerPulse() << std::endl;
+  std::cout << "m_leftEncoder.GetDistancePerPulse() = " << m_leftEncoder.GetDistancePerPulse() << std::endl;
 }
 
 void Drivetrain::Periodic() {
@@ -35,8 +38,8 @@ void Drivetrain::ArcadeDrive(double xaxisSpeed, double zaxisRotate) {
 
 void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
   m_leftMotor.SetVoltage(left);
-  m_rightMotor.SetVoltage(-right);
-  //m_drive.Feed();
+  m_rightMotor.SetVoltage(right);
+  m_drive.Feed();
 }
 
 void Drivetrain::ResetEncoders() {
@@ -105,7 +108,13 @@ void Drivetrain::ResetGyro() {
 }
 
 frc::Pose2d Drivetrain::GetPose() {
-  return m_odometry.GetPose();
+  
+  frc::Pose2d pose = m_odometry.GetPose();
+  frc::Rotation2d rot = pose.Rotation();
+
+  std::cout << "DriveTrain::GetPose(): X " << pose.X() << "  Y " << pose.Y() << "   Rot " << (pose.Rotation()).Degrees() << std::endl;
+
+  return pose;
 }
 
 frc::Rotation2d Drivetrain::GetGyroAngle() {

@@ -28,14 +28,19 @@ namespace DriveConstants {
 
     extern const frc::DifferentialDriveKinematics kDriveKinematics;
 
-    constexpr double kCountsPerRevolution = 1440.0;
+    constexpr double kCountsPerMotorRevolution = 12.0;
+    constexpr double kGearRatio = 120.0;
+    constexpr double kCountsPerWheelRevolution = kCountsPerMotorRevolution * kGearRatio;
+
     constexpr auto   kWheelDiameter = 70_mm;
 
     constexpr auto   kS = 0.584_V;
     constexpr auto   kV = 0.18 * 1_V * 1_s / 1_m;
     constexpr auto   kA = 0.000186 * 1_V * 1_s * 1_s / 1_m;
 
-    constexpr double kPDriveVel = 2.44;
+    constexpr double kPDriveVel = 4.0;
+    constexpr double kIDriveVel = 1.0;
+    constexpr double kDDriveVel = 0.0;
 
     constexpr auto   kTrackWidth = 0.140_m;   // meters
 
