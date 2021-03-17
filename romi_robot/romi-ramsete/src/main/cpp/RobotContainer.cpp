@@ -74,9 +74,21 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
       frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
       // Pass through these waypoints
-      {frc::Translation2d(4_ft, 0.0_ft)},
+      {frc::Translation2d(1_ft, 0.5_ft),
+       frc::Translation2d(2_ft, 1.0_ft),
+       frc::Translation2d(3_ft, 0_ft),
+       frc::Translation2d(4_ft, -1.0_ft),
+       frc::Translation2d(5_ft, 0_ft),
+       frc::Translation2d(6_ft, 1.0_ft),
+       frc::Translation2d(7_ft, 0.0_ft),
+       frc::Translation2d(6_ft, -1.0_ft),
+       frc::Translation2d(5_ft, 0.0_ft),
+       frc::Translation2d(4_ft, 1.0_ft),
+       frc::Translation2d(3_ft, 0.0_ft),
+       frc::Translation2d(2_ft, -1.0_ft),
+       frc::Translation2d(1_ft, -0.5_ft)},
       // End here facing in the same direction we started
-      frc::Pose2d(8_ft, 0_ft, frc::Rotation2d(0_deg)),
+      frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
       config);
 
   frc2::RamseteCommand ramseteCommand(
@@ -102,7 +114,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // no auto
   return new frc2::SequentialCommandGroup(
       std::move(ramseteCommand),
-      frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); }, {}));
+      frc2::InstantCommand([this] { m_drive.TankDriveVolts(-2.5_V, -2.5_V); }, {}));
 
   // return m_chooser.GetSelected();
 }
