@@ -114,7 +114,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // no auto
   return new frc2::SequentialCommandGroup(
       std::move(ramseteCommand),
-      frc2::InstantCommand([this] { m_drive.TankDriveVolts(-2.5_V, -2.5_V); }, {}));
+      frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); }, {}));
 
   // return m_chooser.GetSelected();
 }
