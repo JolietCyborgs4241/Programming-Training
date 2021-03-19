@@ -34,12 +34,12 @@ namespace DriveConstants {
 
     constexpr auto   kWheelDiameter = 70_mm;
 
-    constexpr auto   kS = 0.584_V;
-    constexpr auto   kV = 0.18 * 1_V * 1_s / 1_m;
-    constexpr auto   kA = 0.000186 * 1_V * 1_s * 1_s / 1_m;
+    constexpr auto   kS = 0.929_V; // 0.584_V;
+    constexpr auto   kV = 6.33 * 1_V * 1_s / 1_m; // 0.18 * 1_V * 1_s / 1_m;
+    constexpr auto   kA = 0.0389 * 1_V * 1_s * 1_s / 1_m; // 0.000186 * 1_V * 1_s * 1_s / 1_m;
 
-    constexpr double kPDriveVel = 4.0;
-    constexpr double kIDriveVel = 1.0;
+    constexpr double kPDriveVel = 0.085;
+    constexpr double kIDriveVel = 0.0;
     constexpr double kDDriveVel = 0.0;
 
     constexpr auto   kTrackWidth = 0.140_m;   // meters
