@@ -83,6 +83,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 #ifdef NEVER
   // An example trajectory to follow.  All units in feet.
   auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
+  
       frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
       // Pass through these waypoints
       {frc::Translation2d(1_ft, 0.5_ft),
@@ -102,6 +103,8 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
       config);
 #endif
+
+  m_drive.ResetOdometry(exampleTrajectory.InitialPose());
 
   frc2::RamseteCommand ramseteCommand(
       exampleTrajectory, [this]() { return m_drive.GetPose(); },

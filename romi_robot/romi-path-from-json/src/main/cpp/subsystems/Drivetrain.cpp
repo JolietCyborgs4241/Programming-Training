@@ -127,8 +127,27 @@ frc::Rotation2d Drivetrain::GetGyroAngle() {
 }
 
 void Drivetrain::ResetOdometry(frc::Pose2d pose) {
+  std::cout << "DriveTrain::ResetOdometry(): X " << pose.X() << "  Y " << pose.Y() << std::endl;
+
+  frc::Pose2d resetPose = m_odometry.GetPose();
+
+  std::cout << "DriveTrain::ResetOdometry() pose before ResetPosition: X " << resetPose.X() << "  Y " << resetPose.Y() <<
+              "   Rot " << (resetPose.Rotation()).Degrees() << std::endl;
+
+  std::cout << "DriveTrain::ResetOdometry() enc before ResetPosition: Right Dist " << m_rightEncoder.GetDistance() <<
+                                                                "  Left Dist " << m_leftEncoder.GetDistance() << std::endl;
+
   ResetEncoders();
   m_odometry.ResetPosition(pose, GetGyroAngle());
+
+  resetPose = m_odometry.GetPose();
+
+  std::cout << "DriveTrain::ResetOdometry() pose after ResetPosition: X " << resetPose.X() << "  Y " << resetPose.Y() <<
+               "   Rot " << (resetPose.Rotation()).Degrees() << std::endl;
+
+  std::cout << "DriveTrain::ResetOdometry() enc after ResetPosition: Right Dist " << m_rightEncoder.GetDistance() <<
+                                                                "  Left Dist " << m_leftEncoder.GetDistance() << std::endl;
+
 }
 
 frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeeds() {
