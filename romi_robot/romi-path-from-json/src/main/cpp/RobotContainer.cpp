@@ -52,15 +52,22 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
       frc::SimpleMotorFeedforward<units::meters>(
           DriveConstants::kS, DriveConstants::kV, DriveConstants::kA),
-      DriveConstants::kDriveKinematics, 10_V);
+      DriveConstants::kDriveKinematics, 7_V);
 
   // Set up config for trajectory
   frc::TrajectoryConfig config(AutoConstants::kMaxSpeed,
                                AutoConstants::kMaxAcceleration);
+
   // Add kinematics to ensure max speed is actually obeyed
   config.SetKinematics(DriveConstants::kDriveKinematics);
+
   // Apply the voltage constraint
   config.AddConstraint(autoVoltageConstraint);
+
+  wpi::SmallString<64>    deployDir;
+  frc::filesystem::GetDeployDirectory(deployDir);
+
+  auto exampleTrajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir + "/mini-slalom.wpilib.json");
 
 #ifdef NEVER
   // An example trajectory to follow.  All units in feet.
@@ -73,14 +80,9 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       frc::Pose2d(6_ft, 0_m, frc::Rotation2d(0_deg)),
       // Pass the config
       config);
-#endif
 
-  wpi::SmallString<64>    deployDir;
-  frc::filesystem::GetDeployDirectory(deployDir);
+// --------------------------------------------------------------------------
 
-  auto exampleTrajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir + "/down-n-back.wpilib.json");
-
-#ifdef NEVER
   // An example trajectory to follow.  All units in feet.
   auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
   
@@ -103,8 +105,6 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
       config);
 #endif
-
-  m_drive.ResetOdometry(exampleTrajectory.InitialPose());
 
   frc2::RamseteCommand ramseteCommand(
       exampleTrajectory, [this]() { return m_drive.GetPose(); },
