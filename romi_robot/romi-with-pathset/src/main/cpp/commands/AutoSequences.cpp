@@ -14,6 +14,7 @@
 #include <wpi/SmallString.h>
 #include <string>
 
+#include "commands/Autonomous.h"
 #include "commands/AutoSequences.h"
 #include "Constants.h"
 #include "commands/PathGroup.h"

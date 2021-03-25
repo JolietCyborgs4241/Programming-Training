@@ -25,6 +25,7 @@
 
 #include "commands/TeleopArcadeDrive.h"
 
+#include "commands/Autonomous.h"
 #include "commands/AutoSequences.h"
 
 
