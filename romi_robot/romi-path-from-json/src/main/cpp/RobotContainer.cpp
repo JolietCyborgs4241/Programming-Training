@@ -10,6 +10,7 @@
 #include <frc/trajectory/Trajectory.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc/trajectory/TrajectoryUtil.h>
+//#include <frc/Pose2d.h>
 #include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/RamseteCommand.h>
@@ -18,6 +19,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/PrintCommand.h>
 #include <frc2/command/button/Button.h>
+
+#include <units/angle.h>
 
 #include <frc/Filesystem.h>
 #include <wpi/Path.h>
@@ -107,7 +110,8 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 #endif
 
   frc2::RamseteCommand ramseteCommand(
-      exampleTrajectory, [this]() { return m_drive.GetPose(); },
+      exampleTrajectory.RelativeTo(exampleTrajectory.InitialPose()),
+      [this]() { return m_drive.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB,
                              AutoConstants::kRamseteZeta),
       frc::SimpleMotorFeedforward<units::meters>(
@@ -123,13 +127,8 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       [this](auto left, auto right) { m_drive.TankDriveVolts(left, right); },
       {&m_drive});
 
-  // Reset odometry to the starting pose of the trajectory.
-  m_drive.ResetOdometry(exampleTrajectory.InitialPose());
-
-  // no auto
   return new frc2::SequentialCommandGroup(
+      frc2::InstantCommand([this] { m_drive.ResetOdometry(frc::Pose2d(0_m, 0_m, 0_deg)); }, {} ),
       std::move(ramseteCommand),
-      frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); }, {}));
-
-  // return m_chooser.GetSelected();
+      frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); }, {} ) );
 }
