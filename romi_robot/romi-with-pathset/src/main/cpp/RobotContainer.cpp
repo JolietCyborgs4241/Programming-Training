@@ -11,6 +11,7 @@
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc/trajectory/TrajectoryUtil.h>
 #include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+#include <frc2/command/Command.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/RamseteCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
@@ -41,6 +42,8 @@ AUTO_SEQ  AutoSequences[] = { { "multi-mini-slalom" },
 RobotContainer::RobotContainer() {
   // Configure the button bindings
   ConfigureButtonBindings();
+
+  SetupInvokableCommands();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -64,7 +67,26 @@ void RobotContainer::ConfigureButtonBindings() {
 }
 
 
+void RobotContainer::SetupInvokableCommands() {
+
+  m_commands("STOP",       (frc2::Command *)&CmdStop);
+  m_commands("RESET_ODO",  (frc2::Command *)&CmdResetOdometry);
+  m_commands("RED_ON",     (frc2::Command *)&CmdRedLedOn);
+  m_commands("RED_OFF",    (frc2::Command *)&CmdRedLedOff);
+  m_commands("YELLOW_ON",  (frc2::Command *)&CmdYellowLedOn);
+  m_commands("YELLOW_OFF", (frc2::Command *)&CmdYellowLedOff);
+  m_commands("GREEN_ON",   (frc2::Command *)&CmdGreenLedOn);
+  m_commands("GREEN_OFF",  (frc2::Command *)&CmdGreenLedOff);
+
+  vector<string> cmdNames = m_commands.getCommandNames();
+
+  for ( auto i = 0 ; i < (int)cmdNames.size() ; i++ ) {
+    std::cout << "CmdName[" << i << "] \"" << cmdNames[i] << "\"" << std::endl;
+  }
+}
+
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 
-      return InitializeAutoSequence(m_chooser.GetSelected(), &m_drive);
+      return InitializeAutoSequence(m_chooser.GetSelected(), &m_drive, &m_commands);
 }
