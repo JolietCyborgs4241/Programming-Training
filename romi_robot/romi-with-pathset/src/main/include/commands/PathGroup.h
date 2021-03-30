@@ -66,6 +66,6 @@ class PathGroup {
 
     void getPathFiles(string file); 
 
-    int groupPathsAvailable; 
+    int groupPathsAvailable = 0; 
 };
 

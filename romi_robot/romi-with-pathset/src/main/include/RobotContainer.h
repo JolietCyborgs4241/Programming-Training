@@ -10,8 +10,6 @@
 #include <frc2/command/button/Button.h>
 
 #include "Constants.h"
-#include "commands/AutonomousDistance.h"
-#include "commands/AutonomousTime.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OnBoardIO.h"
 
@@ -42,7 +40,7 @@ class RobotContainer {
  private:
   // Assumes a gamepad plugged into channnel 0
   frc::Joystick m_controller{0};
-  frc::SendableChooser<frc2::Command*> m_chooser;
+  frc::SendableChooser<std::string> m_chooser;
 
   // The robot's subsystems
   Drivetrain m_drive;
@@ -52,10 +50,6 @@ class RobotContainer {
   // Example button
   frc2::Button m_onboardButtonA{
       [this] { return m_onboardIO.GetButtonAPressed(); }};
-
-  // Autonomous commands.
-  AutonomousDistance m_autoDistance{&m_drive};
-  AutonomousTime m_autoTime{&m_drive};
 
   void ConfigureButtonBindings();
 };

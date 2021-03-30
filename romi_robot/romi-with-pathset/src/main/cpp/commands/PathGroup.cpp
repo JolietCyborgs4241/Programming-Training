@@ -103,11 +103,15 @@ void PathGroup::getPathFiles(string groupFile) {
     ifstream readGroupFile;
 
     readGroupFile.open(groupFile);
-    
+
     int segment = 0;
 
     while (!readGroupFile.eof()) {
         getline(readGroupFile, pathFiles[segment]);
+
+        if ( readGroupFile.eof() || readGroupFile.fail() ) {
+            break;
+        }
  
         segment++;
     }

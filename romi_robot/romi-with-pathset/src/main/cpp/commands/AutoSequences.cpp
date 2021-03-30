@@ -14,14 +14,13 @@
 #include <wpi/SmallString.h>
 #include <string>
 
-#include "commands/Autonomous.h"
 #include "commands/AutoSequences.h"
 #include "Constants.h"
 #include "commands/PathGroup.h"
 #include "commands/PathSet.h"
 
 
-// setup our initial command - start from a stopped robot
+// utility stop command
 
 AutoSeqStopCmd::AutoSeqStopCmd(Drivetrain* drivetrain) : m_drivetrain(drivetrain) {
   AddRequirements({drivetrain});
@@ -39,6 +38,24 @@ bool AutoSeqStopCmd::IsFinished() {
   return true; 
 }
 
+
+// reset odometry utility command
+
+ResetOdometry::ResetOdometry(Drivetrain* drivetrain) : m_drivetrain(drivetrain) {
+  AddRequirements({drivetrain});
+}
+
+void ResetOdometry::Initialize() {
+  m_drivetrain->ResetOdometry(frc::Pose2d(0_m, 0_m, 0_deg));
+}
+
+void ResetOdometry::Execute() {}
+
+void ResetOdometry::End(bool interrupted) {}
+
+bool ResetOdometry::IsFinished() { 
+  return true; 
+}
 
 
 
@@ -81,6 +98,7 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain) {
     // start off the command we'll return - we'll add to it as we go along
     AutoSeqCmd.AddCommands(AutoStopCmd);
 
+
     wpi::SmallString<64>    deployDir;
     string                  pathsDir;
 
@@ -119,42 +137,62 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain) {
     // go through all the paths in the first (and only) group
     for (auto pathIndex = 0; pathIndex < thisPath.getGroupPathsAvailable(0); pathIndex++) {
 
-        bool        status;
+        bool      status, isCommand;
 
-        // get each path segment for this group
-        auto trajectory = thisPath.getGroupSegTrajectory(0, pathIndex, status);
+        string    pathSegment = thisPath.getGroupPath(0, pathIndex);;
 
-        if ( ! status) {
-            break;      // got trajectory processing error; don't process any more from this group
-        }
+std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
 
-        // this is where we would differentiate between trajectories and internal commands we want to invoke
+        // check is this is a known command - if not, we'll asume it's a path
 
-        frc2::RamseteCommand ramseteCommand(trajectory,
+        isCommand = false;      // INSERT ACTUAL COMMAND OR PATH CHECK HERE!!!!!
 
-                                [driveTrain]() { return driveTrain->GetPose(); },
+        if ( ! isCommand) {
 
-                                frc::RamseteController(AutoConstants::kRamseteB, AutoConstants::kRamseteZeta),
+          // get teh next path segment for this group
+          auto trajectory = thisPath.getGroupSegTrajectory(0, pathIndex, status);
 
-                                frc::SimpleMotorFeedforward<units::meters>(DriveConstants::kS,
-                                                                           DriveConstants::kV,
-                                                                           DriveConstants::kA),
-                                DriveConstants::kDriveKinematics,
+          if ( ! status) {
+              break;      // got trajectory processing error; don't process any more from this group
+          }
 
-                                [driveTrain] { return driveTrain->GetWheelSpeeds(); },
+          // this is where we would differentiate between trajectories and internal commands we want to invoke
 
-                                frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+          // IMPORTANT:  We normalise the path to be robot-relative as we pass it to the ramsete command!
 
-                                frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+          frc2::RamseteCommand ramseteCommand(
+                                  trajectory.RelativeTo(trajectory.InitialPose()),
 
-                                [driveTrain](auto left, auto right) { driveTrain->TankDriveVolts(left, right); },
+                                  [driveTrain]() { return driveTrain->GetPose(); },
 
-                                {driveTrain});
+                                  frc::RamseteController(AutoConstants::kRamseteB, AutoConstants::kRamseteZeta),
 
-        // add to the sequential command group for this entire sequence
-        //
-        // each trajectory command is followed by a stop
-        AutoSeqCmd.AddCommands(std::move(ramseteCommand), AutoStopCmd);                             
+                                  frc::SimpleMotorFeedforward<units::meters>(DriveConstants::kS,
+                                                                             DriveConstants::kV,
+                                                                             DriveConstants::kA),
+
+                                  DriveConstants::kDriveKinematics,
+
+                                  [driveTrain] { return driveTrain->GetWheelSpeeds(); },
+
+                                  frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+
+                                  frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+
+                                  [driveTrain](auto left, auto right) { driveTrain->TankDriveVolts(left, right); },
+
+                                  {driveTrain});
+
+          // add to the sequential command group for this entire sequence
+          //
+          // each trajectory command is preceded by an odometry reset (since we did a RelativeTo() above
+          // followed by a stop command
+
+          AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ResetOdometry(frc::Pose2d(0_m, 0_m, 0_deg)); }, {} ),
+                                std::move(ramseteCommand),
+                                frc2::InstantCommand([driveTrain] { driveTrain->ArcadeDrive(0, 0); }, {} )
+                                );
+        }                         
     }
 
     return &AutoSeqCmd;

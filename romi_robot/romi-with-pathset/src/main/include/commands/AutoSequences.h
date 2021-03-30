@@ -17,8 +17,6 @@ enum    autoActionType {AUTO_ACTION_NULL,
 typedef struct {
 
     std::string seqName;
-    int         seqType;
-    Autonomous  *seqAuto;
 
 } AUTO_SEQ;
 
@@ -33,6 +31,27 @@ class AutoSeqStopCmd
 
         explicit AutoSeqStopCmd(Drivetrain* drivetrain);
         AutoSeqStopCmd();
+
+        void Initialize() override;
+
+        void Execute() override;
+
+        void End(bool interrupted) override;
+
+        bool IsFinished() override;
+
+    private:
+
+        Drivetrain* m_drivetrain;
+};
+
+class ResetOdometry
+    : public frc2::CommandHelper<frc2::CommandBase, ResetOdometry> {
+
+    public:
+
+        explicit ResetOdometry(Drivetrain* drivetrain);
+        ResetOdometry();
 
         void Initialize() override;
 
