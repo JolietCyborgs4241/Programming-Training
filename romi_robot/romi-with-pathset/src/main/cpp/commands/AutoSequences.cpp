@@ -3,98 +3,26 @@
 #include <frc/trajectory/Trajectory.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+#include <frc/Filesystem.h>
+
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/RamseteCommand.h>
-#include <frc/Filesystem.h>
+
 #include <wpi/Path.h>
 #include <wpi/SmallString.h>
+
 #include <string>
 #include <vector>
 
-#include "commands/AutoSequences.h"
 #include "Constants.h"
+#include "commands/AutoSequences.h"
 #include "commands/PathGroup.h"
 #include "commands/PathSet.h"
-
-
-#ifdef NEVER
-// utility stop command
-
-AutoSeqStopCmd::AutoSeqStopCmd(Drivetrain* drivetrain) : m_drivetrain(drivetrain) {
-  AddRequirements({drivetrain});
-}
-
-void AutoSeqStopCmd::Initialize() {
-  m_drivetrain->ArcadeDrive(0, 0);
-}
-
-void AutoSeqStopCmd::Execute() {}
-
-void AutoSeqStopCmd::End(bool interrupted) {}
-
-bool AutoSeqStopCmd::IsFinished() { 
-  return true; 
-}
-
-
-// reset odometry utility command
-
-ResetOdometry::ResetOdometry(Drivetrain* drivetrain) : m_drivetrain(drivetrain) {
-  AddRequirements({drivetrain});
-}
-
-void ResetOdometry::Initialize() {
-  m_drivetrain->ResetOdometry(frc::Pose2d(0_m, 0_m, 0_deg));
-}
-
-void ResetOdometry::Execute() {}
-
-void ResetOdometry::End(bool interrupted) {}
-
-bool ResetOdometry::IsFinished() { 
-  return true; 
-}
-#endif
-
-
-
-InvokableCommands::InvokableCommands(const string name, const frc2::Command *command) {
-  m_names.push_back(name);
-  m_commands.push_back(command);
-}
-
-
-InvokableCommands::InvokableCommands(const char *c_name, const frc2::Command *command) {
-  string name = c_name;
-  m_names.push_back(name);
-  m_commands.push_back(command);
-}
-
-
-vector<const string> InvokableCommands::getCommandNames() {
-  return m_names;
-}
-
-
-int InvokableCommands::getCommandCount() {
-  return(int)(m_names.size());
-}
-
-
-frc2::Command* InvokableCommands::getCommand(string string) {
-
-  for (auto i = 0 ; i < (int)m_names.size() ; i++) {
-    if (m_names[i] == string) {
-      return (m_commands[i]);
-    }
-  }
-
-  return nullptr;
-}
+#include "subsystems/OnBoardIO.h"
 
 
 
@@ -129,8 +57,6 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
     // Apply the voltage constraint
     config.AddConstraint(autoVoltageConstraint);
 
-
-    vector<const string> cmdNames = cmds->getCommandNames();
 
     static class frc2::SequentialCommandGroup AutoSeqCmd;
 
@@ -176,8 +102,7 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
     // go through all the paths in the first (and only) group
     for (auto pathIndex = 0; pathIndex < thisPath.getGroupPathsAvailable(0); pathIndex++) {
 
-        bool      status, isCommand;
-        int       cmdIndex;
+        bool      status;
         string    pathSegment = thisPath.getGroupPath(0, pathIndex);;
 
 std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
@@ -188,23 +113,20 @@ std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
         // if it's a command, we'll skip over that and just add it to the sequential
         // command group we are building
 
-        isCommand = false;
+        frc2::Command *cmdPointer;
 
-        for ( cmdIndex = 0 ; cmdIndex < (int) cmdNames.size() ; cmdIndex++ ){
-          if (pathSegment == cmdNames[cmdIndex]) {
-            isCommand = true;
+        if ((cmdPointer = cmds->getCommand(pathSegment)) != nullptr) {
 
-std::cout << "Found command \"" << cmdNames[cmdIndex] << "\" at index " << cmdIndex << std::endl;
+std::cout << "\"" << pathSegment << "\" is a command - adding to sequential command group" << std:: endl;
 
-            break;
-          }
-        }
+          AutoSeqCmd.AddCommands(*cmdPointer);
 
-        if ( ! isCommand) {
+        } else {
+
+          // it's an actual path segment to get the JSON, create a trajectory, and create the ramsete command
 
 std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
 
-          // get the next path segment for this group
           auto trajectory = thisPath.getGroupSegTrajectory(0, pathIndex, status);
 
           if ( ! status) {
@@ -245,13 +167,7 @@ std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
           AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ResetOdometry(frc::Pose2d(0_m, 0_m, 0_deg)); }, {} ),
                                  std::move(ramseteCommand)
                                 );
-        } else {
-
-std::cout << "\"" << pathSegment >> "\" is a command - adding to sequential command group" << std:: endl;
-
-          // it's a command so add the command to the sequence
-          AutoSeqCmd.AddCommands(*(cmds->getCommand(cmdNames[cmdIndex])));
-        }                      
+        }                   
     }
 
     // end the sequence with a full stop - use our "STOP" command for consistency

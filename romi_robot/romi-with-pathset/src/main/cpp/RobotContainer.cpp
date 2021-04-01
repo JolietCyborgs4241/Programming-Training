@@ -2,6 +2,10 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc2/command/button/JoystickButton.h>
+#include <frc/XboxController.h>
+
 #include "RobotContainer.h"
 
 #include <frc/controller/PIDController.h>
@@ -29,13 +33,6 @@
 #include "commands/AutoSequences.h"
 
 
-AUTO_SEQ  AutoSequences[] = { { "multi-mini-slalom" },
-                              { "mini-slalom" },
-                              { "down-n-back" },
-                              { "third_one" },
-                              { "4444ttthhhh" },
-                              { "" }
-                            };
 
 
 
@@ -56,27 +53,32 @@ void RobotContainer::ConfigureButtonBindings() {
   m_onboardButtonA.WhenPressed(frc2::PrintCommand("Button A Pressed"))
       .WhenReleased(frc2::PrintCommand("Button A Released"));
 
+std::cout << "SETUP CHOOSER";
+
+  m_chooser.SetDefaultOption("HEY", "HEY");
+
+  #ifdef NEVER
   // Setup SmartDashboard options.
   //
   // we return the same string as was selected
-  m_chooser.SetDefaultOption(AutoSequences[0].seqName, AutoSequences[0].seqName);
   for (auto i = 1 ; ! (AutoSequences[i].seqName.empty()) ; i++) {
     m_chooser.AddOption(AutoSequences[i].seqName, AutoSequences[i].seqName);
   }
   frc::SmartDashboard::PutData("Auto Path Selector", &m_chooser);
+  #endif
 }
 
 
 void RobotContainer::SetupInvokableCommands() {
 
-  m_commands("STOP",       (frc2::Command *)&CmdStop);
-  m_commands("RESET_ODO",  (frc2::Command *)&CmdResetOdometry);
-  m_commands("RED_ON",     (frc2::Command *)&CmdRedLedOn);
-  m_commands("RED_OFF",    (frc2::Command *)&CmdRedLedOff);
-  m_commands("YELLOW_ON",  (frc2::Command *)&CmdYellowLedOn);
-  m_commands("YELLOW_OFF", (frc2::Command *)&CmdYellowLedOff);
-  m_commands("GREEN_ON",   (frc2::Command *)&CmdGreenLedOn);
-  m_commands("GREEN_OFF",  (frc2::Command *)&CmdGreenLedOff);
+  m_commands("STOP",       &InvokableCmdStop);
+  m_commands("RESET_ODO",  &InvokableCmdResetOdo);
+  m_commands("RED_ON",     &InvokableCmdRedLedOn);
+  m_commands("RED_OFF",    &InvokableCmdRedLedOff);
+  m_commands("YELLOW_ON",  &InvokableCmdYellowLedOn);
+  m_commands("YELLOW_OFF", &InvokableCmdYellowLedOff);
+  m_commands("GREEN_ON",   &InvokableCmdGreenLedOn);
+  m_commands("GREEN_OFF",  &InvokableCmdGreenLedOff);
 
   vector<string> cmdNames = m_commands.getCommandNames();
 

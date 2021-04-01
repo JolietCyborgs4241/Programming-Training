@@ -8,12 +8,13 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/button/Button.h>
-#include <frc2/command/Command.h>
-#include <frc2/command/InstantCommand.h>
 #include <frc2/command/RunCommand.h>
 
+#include <string>
+#include <vector>
+
 #include "Constants.h"
-#include "commands/AutoSequences.h"
+//#include "commands/InvokableCommands.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OnBoardIO.h"
 
@@ -40,7 +41,6 @@ class RobotContainer {
  public:
   RobotContainer();
   frc2::Command* GetAutonomousCommand();
-  void SetupInvokableCommands();
 
  private:
   // Assumes a gamepad plugged into channnel 0
@@ -56,17 +56,10 @@ class RobotContainer {
   frc2::Button m_onboardButtonA{
       [this] { return m_onboardIO.GetButtonAPressed(); }};
 
-  // instant commands
-  frc2::InstantCommand CmdStop{[this] { m_drive.ArcadeDrive(0, 0); }, {&m_drive}};
-  frc2::InstantCommand CmdResetOdometry{[this] { m_drive.ResetOdometry(frc::Pose2d(0_m, 0_m, 0_deg)); }, {&m_drive}};
-  frc2::InstantCommand CmdRedLedOn{[this] { m_onboardIO.SetRedLed(true); }, {&m_onboardIO}};
-  frc2::InstantCommand CmdRedLedOff{[this] { m_onboardIO.SetRedLed(false); }, {&m_onboardIO}};
-  frc2::InstantCommand CmdYellowLedOn{[this] { m_onboardIO.SetYellowLed(true); }, {&m_onboardIO}};
-  frc2::InstantCommand CmdYellowLedOff{[this] { m_onboardIO.SetYellowLed(false); }, {&m_onboardIO}};
-  frc2::InstantCommand CmdGreenLedOn{[this] { m_onboardIO.SetGreenLed(true); }, {&m_onboardIO}};
-  frc2::InstantCommand CmdGreenLedOff{[this] { m_onboardIO.SetGreenLed(false); }, {&m_onboardIO}};
-
   InvokableCommands m_commands;
 
   void ConfigureButtonBindings();
+
+  void SetupInvokableCommands();
+
 };
