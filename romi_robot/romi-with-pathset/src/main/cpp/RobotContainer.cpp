@@ -71,24 +71,33 @@ std::cout << "SETUP CHOOSER";
 
 void RobotContainer::SetupInvokableCommands() {
 
-  m_commands("STOP",       &InvokableCmdStop);
-  m_commands("RESET_ODO",  &InvokableCmdResetOdo);
-  m_commands("RED_ON",     &InvokableCmdRedLedOn);
-  m_commands("RED_OFF",    &InvokableCmdRedLedOff);
-  m_commands("YELLOW_ON",  &InvokableCmdYellowLedOn);
-  m_commands("YELLOW_OFF", &InvokableCmdYellowLedOff);
-  m_commands("GREEN_ON",   &InvokableCmdGreenLedOn);
-  m_commands("GREEN_OFF",  &InvokableCmdGreenLedOff);
+  m_invokableCommands.addCommands("STOP",       nullptr);
+  m_invokableCommands.addCommands("RESET_ODO",  nullptr);
+  m_invokableCommands.addCommands("RED_ON",     nullptr);
+  m_invokableCommands.addCommands("RED_OFF",    nullptr);
+  m_invokableCommands.addCommands("YELLOW_ON",  nullptr);
+  m_invokableCommands.addCommands("YELLOW_OFF", nullptr);
+  m_invokableCommands.addCommands("GREEN_ON",   nullptr);
+  m_invokableCommands.addCommands("GREEN_OFF",  nullptr);
 
-  vector<string> cmdNames = m_commands.getCommandNames();
+  //m_invokableCommands("STOP",       &InvokableCmdStop);
+  //m_invokableCommands("RESET_ODO",  &InvokableCmdResetOdo);
+  //m_invokableCommands("RED_ON",     &InvokableCmdRedLedOn);
+  //m_invokableCommands("RED_OFF",    &InvokableCmdRedLedOff);
+  //m_invokableCommands("YELLOW_ON",  &InvokableCmdYellowLedOn);
+  //m_invokableCommands("YELLOW_OFF", &InvokableCmdYellowLedOff);
+  //m_invokableCommands("GREEN_ON",   &InvokableCmdGreenLedOn);
+  //m_invokableCommands("GREEN_OFF",  &InvokableCmdGreenLedOff);
 
-  for ( auto i = 0 ; i < (int)cmdNames.size() ; i++ ) {
-    std::cout << "CmdName[" << i << "] \"" << cmdNames[i] << "\"" << std::endl;
+  int cmdCount = m_invokableCommands.getCommandCount();
+
+  for ( auto i = 0 ; i < cmdCount ; i++ ) {
+    std::cout << "CmdName[" << i << "] \"" << m_invokableCommands.getCommandName(i) << "\"" << std::endl;
   }
 }
 
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 
-      return InitializeAutoSequence(m_chooser.GetSelected(), &m_drive, &m_commands);
+      return InitializeAutoSequence(m_chooser.GetSelected(), &m_drive, &m_invokableCommands);
 }

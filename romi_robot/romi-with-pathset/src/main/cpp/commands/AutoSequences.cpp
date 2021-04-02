@@ -61,7 +61,7 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
     static class frc2::SequentialCommandGroup AutoSeqCmd;
 
     // start off the command we'll return - we'll add to it as we go along
-    AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
+    //AutoSeqCmd.AddCommands(std::move(*(cmds->getCommand("STOP"))));
 
 
     wpi::SmallString<64>    deployDir;
@@ -173,7 +173,7 @@ std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
     // end the sequence with a full stop - use our "STOP" command for consistency
 
     //AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ArcadeDrive(0, 0); }, {} ) );
-    AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
+    //AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
 
     return &AutoSeqCmd;
 }
