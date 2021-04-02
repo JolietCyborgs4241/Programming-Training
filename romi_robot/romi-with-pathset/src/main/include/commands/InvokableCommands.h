@@ -14,14 +14,13 @@
 using std::string;
 using std::vector;
 
-#define MAX_INVOKABLE_COMMANDS      10
 
 class InvokableCommands {
 
   public:
     InvokableCommands();
-
-    void addCommands(string name, frc2::Command *command);
+    InvokableCommands(string name, frc2::Command *command);
+    InvokableCommands(char *name, frc2::Command *command);
 
     string getCommandName(int i);
 
@@ -32,9 +31,8 @@ class InvokableCommands {
 
   private:
 
-    int             m_cmdCount = 0;
-    string          m_names[MAX_INVOKABLE_COMMANDS];
-    //frc2::Command   *m_commands[MAX_INVOKABLE_COMMANDS];
+    vector<string> m_names;
+    vector<frc2::Command*> m_commands;
 };
 
 
