@@ -16,7 +16,6 @@
 #include <wpi/SmallString.h>
 
 #include <string>
-#include <vector>
 
 #include "Constants.h"
 #include "commands/AutoSequences.h"
@@ -61,7 +60,7 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
     static class frc2::SequentialCommandGroup AutoSeqCmd;
 
     // start off the command we'll return - we'll add to it as we go along
-    AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
+    //AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
 
 
     wpi::SmallString<64>    deployDir;
@@ -119,7 +118,7 @@ std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
 
 std::cout << "\"" << pathSegment << "\" is a command - adding to sequential command group" << std:: endl;
 
-          AutoSeqCmd.AddCommands(*cmdPointer);
+          //AutoSeqCmd.AddCommands(*cmdPointer);
 
         } else {
 
@@ -173,7 +172,7 @@ std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
     // end the sequence with a full stop - use our "STOP" command for consistency
 
     //AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ArcadeDrive(0, 0); }, {} ) );
-    AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
+    //AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
 
     return &AutoSeqCmd;
 }

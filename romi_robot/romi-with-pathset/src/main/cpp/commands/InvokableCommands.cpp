@@ -1,7 +1,65 @@
 #include "commands/InvokableCommands.h"
 
 #include <string>
-#include <vector>
+
+
+
+// InvokableCommands implementation
+
+InvokableCommands::InvokableCommands() {
+    m_cmdCount = 0;
+}
+    
+    
+void InvokableCommands::addCommands(string name, frc2::Command *command) {
+  if (m_cmdCount < (MAX_INVOKABLE_COMMANDS - 1)) {
+      // room for at least one more
+      m_names[m_cmdCount]    = name;
+      m_commands[m_cmdCount] = command;
+
+      m_cmdCount++;
+  } else {
+      std::cerr << "InvokableCommands: No more space for commands - max # of commands is " << MAX_INVOKABLE_COMMANDS << std::endl;
+  }
+}
+
+
+int InvokableCommands::getCommandCount() {
+  return m_cmdCount;
+}
+
+
+frc2::Command *InvokableCommands::getCommand(string name) {
+
+  for (auto i = 0 ; i < m_cmdCount ; i++) {
+    if (m_names[i] == name) {
+      return m_commands[i];
+    }
+  }
+
+  return nullptr;
+}
+
+
+frc2::Command *InvokableCommands::getCommand(int index) {
+
+  if (index >= 0 && index < m_cmdCount) {
+    return m_commands[index];
+  }
+
+  return nullptr;
+}
+
+
+string InvokableCommands::getCommandName(int index) {
+
+  if (index >= 0 && index < m_cmdCount) {
+    return m_names[index];
+  }
+
+  return "";
+}
+
 
 
 //  stop utility command
@@ -154,47 +212,4 @@ void InvokableCmdGreenLedOff::End(bool interrupted) {}
 
 bool InvokableCmdGreenLedOff::IsFinished() { 
   return true; 
-}
-
-
-
-// InvokableCommands implementation
-
-InvokableCommands::InvokableCommands(string name, frc2::Command *command) {
-  m_names.push_back(name);
-  m_commands.push_back(command);
-}
-
-
-InvokableCommands::InvokableCommands(char *c_name, frc2::Command *command) {
-  string name = c_name;
-  m_names.push_back(name);
-  m_commands.push_back(command);
-}
-
-
-int InvokableCommands::getCommandCount() {
-  return(int)(m_names.size());
-}
-
-
-frc2::Command *InvokableCommands::getCommand(string name) {
-
-  for (auto i = 0 ; i < (int)m_names.size() ; i++) {
-    if (m_names[i] == name) {
-      return (m_commands[i]);
-    }
-  }
-
-  return nullptr;
-}
-
-
-frc2::Command *InvokableCommands::getCommand(int index) {
-
-  if (index >= 0 && index < (int)m_names.size()) {
-    return (m_commands[index]);
-  }
-
-  return nullptr;
 }
