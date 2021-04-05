@@ -52,6 +52,16 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
+
+  std::cout << "TeleopInit():\"RED_ON\" pointer = " << m_container.m_invokableCommands.getCommand("RED_ON") << std::endl;
+  std::cout << "TeleopInit():\"YELLOW_ON\" pointer = " << m_container.m_invokableCommands.getCommand("YELLOW_ON") << std::endl;
+  std::cout << "TeleopInit():\"GREEN_ON\" pointer = " << m_container.m_invokableCommands.getCommand("GREEN_ON") << std::endl;
+
+  m_container.m_invokableCommands.getCommand("RED_ON")->Schedule();
+  m_container.m_invokableCommands.getCommand("YELLOW_ON")->Schedule();
+  //m_container.m_invokableCommands.getCommand("GREEN_ON")->Schedule();
+  m_container.m_onboardIO.SetGreenLed(true);
+
 }
 
 /**

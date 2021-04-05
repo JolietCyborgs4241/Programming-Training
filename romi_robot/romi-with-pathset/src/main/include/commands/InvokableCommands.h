@@ -45,13 +45,8 @@ class InvokableCmdStop
     public:
 
         explicit InvokableCmdStop(Drivetrain *drivetrain);
-        InvokableCmdStop();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -67,13 +62,8 @@ class InvokableCmdResetOdo
     public:
 
         explicit InvokableCmdResetOdo(Drivetrain *drivetrain);
-        InvokableCmdResetOdo();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -89,13 +79,8 @@ class InvokableCmdRedLedOn
     public:
 
         explicit InvokableCmdRedLedOn(OnBoardIO *onBoardIO);
-        InvokableCmdRedLedOn();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -110,13 +95,8 @@ class InvokableCmdRedLedOff
     public:
 
         explicit InvokableCmdRedLedOff(OnBoardIO *onBoardIO);
-        InvokableCmdRedLedOff();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -131,13 +111,8 @@ class InvokableCmdYellowLedOn
     public:
 
         explicit InvokableCmdYellowLedOn(OnBoardIO *onBoardIO);
-        InvokableCmdYellowLedOn();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -152,13 +127,8 @@ class InvokableCmdYellowLedOff
     public:
 
         explicit InvokableCmdYellowLedOff(OnBoardIO *onBoardIO);
-        InvokableCmdYellowLedOff();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -172,13 +142,8 @@ class InvokableCmdGreenLedOn
     public:
 
         explicit InvokableCmdGreenLedOn(OnBoardIO *onBoardIO);
-        InvokableCmdGreenLedOn();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 
@@ -193,13 +158,8 @@ class InvokableCmdGreenLedOff
     public:
 
         explicit InvokableCmdGreenLedOff(OnBoardIO *onBoardIO);
-        InvokableCmdGreenLedOff();
 
         void Initialize() override;
-
-        void Execute() override;
-
-        void End(bool interrupted) override;
 
         bool IsFinished() override;
 

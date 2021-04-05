@@ -52,11 +52,20 @@ void RobotContainer::ConfigureButtonBindings() {
   // Also set default commands here
   m_drive.SetDefaultCommand(TeleopArcadeDrive(
       &m_drive, [this] { return -m_controller.GetRawAxis(1); },
-      [this] { return m_controller.GetRawAxis(2); }));
+      [this] { return m_controller.GetRawAxis(3); }));
 
   // Example of how to use the onboard IO
   m_onboardButtonA.WhenPressed(frc2::PrintCommand("Button A Pressed"))
       .WhenReleased(frc2::PrintCommand("Button A Released"));
+
+  m_onboardButtonB.WhenPressed(frc2::PrintCommand("Button B Pressed"))
+      .WhenReleased(frc2::PrintCommand("Button B Released"));
+
+  m_onboardButtonC.WhenPressed(frc2::PrintCommand("Button C Pressed"))
+      .WhenReleased(frc2::PrintCommand("Button C Released"));
+
+  //m_onboardButtonA.WhenPressed(frc2::InstantCommand([this] { m_onboardIO.SetYellowLed(true); }, {} ))
+  //    .WhenReleased(frc2::InstantCommand([this] { m_onboardIO.SetYellowLed(false); }, {}));
 }
 
 

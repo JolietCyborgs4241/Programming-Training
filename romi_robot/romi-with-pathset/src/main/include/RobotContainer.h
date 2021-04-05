@@ -42,6 +42,10 @@ class RobotContainer {
   RobotContainer();
   frc2::Command* GetAutonomousCommand();
 
+  InvokableCommands m_invokableCommands;
+    OnBoardIO m_onboardIO{OnBoardIO::ChannelMode::OUTPUT,
+                        OnBoardIO::ChannelMode::OUTPUT};
+
  private:
   // Assumes a gamepad plugged into channnel 0
   frc::Joystick m_controller{0};
@@ -49,14 +53,15 @@ class RobotContainer {
 
   // The robot's subsystems
   Drivetrain m_drive;
-  OnBoardIO m_onboardIO{OnBoardIO::ChannelMode::OUTPUT,
-                        OnBoardIO::ChannelMode::OUTPUT};
 
-  // Example button
   frc2::Button m_onboardButtonA{
       [this] { return m_onboardIO.GetButtonAPressed(); }};
+  frc2::Button m_onboardButtonB{
+      [this] { return m_onboardIO.GetButtonBPressed(); }};
+  frc2::Button m_onboardButtonC{
+      [this] { return m_onboardIO.GetButtonCPressed(); }};
 
-  InvokableCommands m_invokableCommands;
+  //InvokableCommands m_invokableCommands;
 
   void ConfigureButtonBindings();
 
