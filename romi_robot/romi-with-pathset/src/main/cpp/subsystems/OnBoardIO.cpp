@@ -15,8 +15,10 @@ OnBoardIO::OnBoardIO(OnBoardIO::ChannelMode dio1, OnBoardIO::ChannelMode dio2) {
   } else {
     m_greenLed = std::make_unique<frc::DigitalOutput>(1);
   }
+  
   if (dio2 == ChannelMode::INPUT) {
     m_buttonC = std::make_unique<frc::DigitalInput>(2);
+  } else {
     m_redLed = std::make_unique<frc::DigitalOutput>(2);
   }
 }
@@ -53,6 +55,7 @@ bool OnBoardIO::GetButtonCPressed() {
 
 void OnBoardIO::SetGreenLed(bool value) {
   if (m_greenLed) {
+std::cout << "OnBoardIO::SetGreenLed(" << value << ")" << std::endl;
     m_greenLed->Set(value);
   } else {
     auto currentTime = frc2::Timer::GetFPGATimestamp();
@@ -65,6 +68,7 @@ void OnBoardIO::SetGreenLed(bool value) {
 
 void OnBoardIO::SetRedLed(bool value) {
   if (m_redLed) {
+std::cout << "OnBoardIO::SetRedLed(" << value << ")" << std::endl;
     m_redLed->Set(value);
   } else {
     auto currentTime = frc2::Timer::GetFPGATimestamp();
@@ -76,5 +80,6 @@ void OnBoardIO::SetRedLed(bool value) {
 }
 
 void OnBoardIO::SetYellowLed(bool value) {
+std::cout << "OnBoardIO::SetYellowLed(" << value << ")" << std::endl;
   m_yellowLed.Set(value);
 }

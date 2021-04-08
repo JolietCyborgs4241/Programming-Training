@@ -9,6 +9,7 @@
 #include <frc2/command/Command.h>
 #include <frc2/command/button/Button.h>
 #include <frc2/command/RunCommand.h>
+#include <frc/DigitalOutput.h>
 
 #include <string>
 #include <vector>
@@ -43,8 +44,13 @@ class RobotContainer {
   frc2::Command* GetAutonomousCommand();
 
   InvokableCommands m_invokableCommands;
-    OnBoardIO m_onboardIO{OnBoardIO::ChannelMode::OUTPUT,
-                        OnBoardIO::ChannelMode::OUTPUT};
+
+  OnBoardIO m_onboardIO{OnBoardIO::ChannelMode::INPUT,
+                        OnBoardIO::ChannelMode::INPUT};
+
+  frc::DigitalOutput m_redLED{10};
+  frc::DigitalOutput m_yellowLED{9};
+  frc::DigitalOutput m_greenLED{8};
 
  private:
   // Assumes a gamepad plugged into channnel 0

@@ -12,7 +12,7 @@
 #include <iostream>
 
 
-#define MAX_SEG_PATHS_IN_GROUP       10
+#define MAX_SEG_PATHS_IN_GROUP       20
 
 using namespace std;
 

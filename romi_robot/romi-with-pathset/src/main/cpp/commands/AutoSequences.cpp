@@ -118,7 +118,7 @@ std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
 
 std::cout << "\"" << pathSegment << "\" is a command - adding to sequential command group" << std:: endl;
 
-          //AutoSeqCmd.AddCommands(*cmdPointer);
+          //AutoSeqCmd.AddCommands( (*cmdPointer) );
 
         } else {
 

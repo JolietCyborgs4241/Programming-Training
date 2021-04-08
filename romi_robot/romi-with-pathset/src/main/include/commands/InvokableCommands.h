@@ -78,7 +78,7 @@ class InvokableCmdRedLedOn
 
     public:
 
-        explicit InvokableCmdRedLedOn(OnBoardIO *onBoardIO);
+        explicit InvokableCmdRedLedOn(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -86,7 +86,7 @@ class InvokableCmdRedLedOn
 
     private:
 
-        OnBoardIO *m_onBoardIO;
+        frc::DigitalOutput *m_io;
 };
 
 class InvokableCmdRedLedOff
@@ -94,7 +94,7 @@ class InvokableCmdRedLedOff
 
     public:
 
-        explicit InvokableCmdRedLedOff(OnBoardIO *onBoardIO);
+        explicit InvokableCmdRedLedOff(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -102,7 +102,7 @@ class InvokableCmdRedLedOff
 
     private:
 
-        OnBoardIO *m_onBoardIO;
+        frc::DigitalOutput *m_io;
 };
 
 class InvokableCmdYellowLedOn
@@ -110,7 +110,7 @@ class InvokableCmdYellowLedOn
 
     public:
 
-        explicit InvokableCmdYellowLedOn(OnBoardIO *onBoardIO);
+        explicit InvokableCmdYellowLedOn(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -118,7 +118,7 @@ class InvokableCmdYellowLedOn
 
     private:
 
-        OnBoardIO *m_onBoardIO;
+        frc::DigitalOutput *m_io;
 };
 
 class InvokableCmdYellowLedOff
@@ -126,14 +126,14 @@ class InvokableCmdYellowLedOff
 
     public:
 
-        explicit InvokableCmdYellowLedOff(OnBoardIO *onBoardIO);
+        explicit InvokableCmdYellowLedOff(frc::DigitalOutput *io);
 
         void Initialize() override;
 
         bool IsFinished() override;
 
     private:
-        OnBoardIO *m_onBoardIO;
+        frc::DigitalOutput *m_io;
 };
 
 class InvokableCmdGreenLedOn
@@ -141,7 +141,7 @@ class InvokableCmdGreenLedOn
 
     public:
 
-        explicit InvokableCmdGreenLedOn(OnBoardIO *onBoardIO);
+        explicit InvokableCmdGreenLedOn(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -149,7 +149,7 @@ class InvokableCmdGreenLedOn
 
     private:
 
-        OnBoardIO *m_onBoardIO;
+        frc::DigitalOutput *m_io;
 };
 
 class InvokableCmdGreenLedOff
@@ -157,7 +157,7 @@ class InvokableCmdGreenLedOff
 
     public:
 
-        explicit InvokableCmdGreenLedOff(OnBoardIO *onBoardIO);
+        explicit InvokableCmdGreenLedOff(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -165,5 +165,5 @@ class InvokableCmdGreenLedOff
 
     private:
 
-        OnBoardIO *m_onBoardIO;
+        frc::DigitalOutput *m_io;
 };

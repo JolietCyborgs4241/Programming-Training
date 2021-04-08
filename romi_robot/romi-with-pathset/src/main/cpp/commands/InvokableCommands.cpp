@@ -61,6 +61,8 @@ string InvokableCommands::getCommandName(int index) {
 }
 
 
+// --------------------- commands ---------------------------
+
 
 //  stop utility command
 
@@ -95,14 +97,14 @@ bool InvokableCmdResetOdo::IsFinished() {
 
 // red led on utility command
 
-InvokableCmdRedLedOn::InvokableCmdRedLedOn(OnBoardIO *onBoardIO) : m_onBoardIO(onBoardIO) {
-  AddRequirements({onBoardIO});
+InvokableCmdRedLedOn::InvokableCmdRedLedOn(frc::DigitalOutput *io) : m_io(io) {
+  //AddRequirements({io});
 }
 
 void InvokableCmdRedLedOn::Initialize() {
-        std::cout << "InvokableCmdRedLedOn: Initialize()" << std::endl;
+  std::cout << "InvokableCmdRedLedOn: Initialize()" << std::endl;
 
-  m_onBoardIO->SetRedLed(true);
+  m_io->Set(true);
 }
 
 bool InvokableCmdRedLedOn::IsFinished() { 
@@ -115,12 +117,12 @@ bool InvokableCmdRedLedOn::IsFinished() {
 
 // red led off utility command
 
-InvokableCmdRedLedOff::InvokableCmdRedLedOff(OnBoardIO *onBoardIO) : m_onBoardIO(onBoardIO) {
-  AddRequirements({onBoardIO});
+InvokableCmdRedLedOff::InvokableCmdRedLedOff(frc::DigitalOutput *io) : m_io(io) {
+  //AddRequirements({io});
 }
 
 void InvokableCmdRedLedOff::Initialize() {
-  m_onBoardIO->SetRedLed(false);
+  m_io->Set(false);
 }
 
 bool InvokableCmdRedLedOff::IsFinished() { 
@@ -130,18 +132,18 @@ bool InvokableCmdRedLedOff::IsFinished() {
 
 // yellow led on utility command
 
-InvokableCmdYellowLedOn::InvokableCmdYellowLedOn(OnBoardIO *onBoardIO) : m_onBoardIO(onBoardIO) {
-  //AddRequirements({onBoardIO});
+InvokableCmdYellowLedOn::InvokableCmdYellowLedOn(frc::DigitalOutput *io) : m_io(io) {
+  //AddRequirements({io});
 }
 
 void InvokableCmdYellowLedOn::Initialize() {
-    std::cout << "InvokableCmdYellowLedOn: Initialize()" << std::endl;
+  std::cout << "InvokableCmdYellowLedOn: Initialize()" << std::endl;
 
-  m_onBoardIO->SetYellowLed(true);
+  m_io->Set(true);
 }
 
 bool InvokableCmdYellowLedOn::IsFinished() { 
-        std::cout << "InvokableCmdYellowLedOn: IsFinished()" << std::endl;
+  std::cout << "InvokableCmdYellowLedOn: IsFinished()" << std::endl;
 
   return true; 
 }
@@ -149,12 +151,12 @@ bool InvokableCmdYellowLedOn::IsFinished() {
 
 // yellow led off utility command
 
-InvokableCmdYellowLedOff::InvokableCmdYellowLedOff(OnBoardIO *onBoardIO) : m_onBoardIO(onBoardIO) {
-  //AddRequirements({onBoardIO});
+InvokableCmdYellowLedOff::InvokableCmdYellowLedOff(frc::DigitalOutput *io) : m_io(io) {
+  //AddRequirements({io});
 }
 
 void InvokableCmdYellowLedOff::Initialize() {
-  m_onBoardIO->SetYellowLed(false);
+  m_io->Set(false);
 }
 
 bool InvokableCmdYellowLedOff::IsFinished() { 
@@ -164,19 +166,19 @@ bool InvokableCmdYellowLedOff::IsFinished() {
 
 // green led on utility command
 
-InvokableCmdGreenLedOn::InvokableCmdGreenLedOn(OnBoardIO *onBoardIO) : m_onBoardIO(onBoardIO) {
-  AddRequirements({onBoardIO});
+InvokableCmdGreenLedOn::InvokableCmdGreenLedOn(frc::DigitalOutput *io) : m_io(io) {
+  //AddRequirements({io});
 }
 
 void InvokableCmdGreenLedOn::Initialize() {
-    std::cout << "InvokableCmdGreenLedOn: Initialize()" << std::endl;
+  std::cout << "InvokableCmdGreenLedOn: Initialize()" << std::endl;
 
-  m_onBoardIO->SetGreenLed(true);
+  m_io->Set(true);
 }
 
 bool InvokableCmdGreenLedOn::IsFinished() { 
 
-std::cout << "InvokableCmdGreenLedOn: IsFinished()" << std::endl;
+  std::cout << "InvokableCmdGreenLedOn: IsFinished()" << std::endl;
 
   return true; 
 }
@@ -184,12 +186,12 @@ std::cout << "InvokableCmdGreenLedOn: IsFinished()" << std::endl;
 
 // green led off utility command
 
-InvokableCmdGreenLedOff::InvokableCmdGreenLedOff(OnBoardIO *onBoardIO) : m_onBoardIO(onBoardIO) {
-  AddRequirements({onBoardIO});
+InvokableCmdGreenLedOff::InvokableCmdGreenLedOff(frc::DigitalOutput *io) : m_io(io) {
+  //AddRequirements({io});
 }
 
 void InvokableCmdGreenLedOff::Initialize() {
-  m_onBoardIO->SetGreenLed(false);
+  m_io->Set(false);
 }
 
 bool InvokableCmdGreenLedOff::IsFinished() { 

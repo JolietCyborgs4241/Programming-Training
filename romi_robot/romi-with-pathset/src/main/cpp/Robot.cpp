@@ -39,9 +39,15 @@ void Robot::AutonomousInit() {
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Schedule();
   }
+
+  m_container.m_redLED.Set(true);
+  m_container.m_yellowLED.Set(true);
+  m_container.m_greenLED.Set(true);
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() {
+
+}
 
 void Robot::TeleopInit() {
   // This makes sure that the autonomous stops running when
@@ -52,22 +58,14 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
-
-  std::cout << "TeleopInit():\"RED_ON\" pointer = " << m_container.m_invokableCommands.getCommand("RED_ON") << std::endl;
-  std::cout << "TeleopInit():\"YELLOW_ON\" pointer = " << m_container.m_invokableCommands.getCommand("YELLOW_ON") << std::endl;
-  std::cout << "TeleopInit():\"GREEN_ON\" pointer = " << m_container.m_invokableCommands.getCommand("GREEN_ON") << std::endl;
-
-  m_container.m_invokableCommands.getCommand("RED_ON")->Schedule();
-  m_container.m_invokableCommands.getCommand("YELLOW_ON")->Schedule();
-  //m_container.m_invokableCommands.getCommand("GREEN_ON")->Schedule();
-  m_container.m_onboardIO.SetGreenLed(true);
-
 }
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+
+}
 
 /**
  * This function is called periodically during test mode.
