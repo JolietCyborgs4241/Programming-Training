@@ -43,11 +43,28 @@ RobotContainer::RobotContainer() {
 
   SetupInvokableCommands();
 
-  // Configure the button bindings
   ConfigureButtonBindings();
 
   SetupAutoChooser();
 }
+
+
+void RobotContainer::SetupInvokableCommands() {
+
+  m_invokableCommands.addCommands("STOP",       new InvokableCmdStop(&m_drive));
+  m_invokableCommands.addCommands("RESET_ODO",  new InvokableCmdResetOdo(&m_drive));
+  m_invokableCommands.addCommands("RED_ON",     new InvokableCmdRedLedOn(&m_redLED));
+  m_invokableCommands.addCommands("RED_OFF",    new InvokableCmdRedLedOff(&m_redLED));
+  m_invokableCommands.addCommands("YELLOW_ON",  new InvokableCmdYellowLedOn(&m_yellowLED));
+  m_invokableCommands.addCommands("YELLOW_OFF", new InvokableCmdYellowLedOff(&m_yellowLED));
+  m_invokableCommands.addCommands("GREEN_ON",   new InvokableCmdGreenLedOn(&m_greenLED));
+  m_invokableCommands.addCommands("GREEN_OFF",  new InvokableCmdGreenLedOff(&m_greenLED));
+
+  for ( auto i = 0 ; i < m_invokableCommands.getCommandCount() ; i++ ) {
+    std::cout << "CmdName[" << i << "] \"" << m_invokableCommands.getCommandName(i) << "\"" << std::endl;
+  }
+}
+
 
 void RobotContainer::ConfigureButtonBindings() {
   // Also set default commands here
@@ -67,23 +84,6 @@ void RobotContainer::ConfigureButtonBindings() {
 
   //m_onboardButtonA.WhenPressed(frc2::InstantCommand([this] { m_onboardIO.SetYellowLed(true); }, {} ))
   //    .WhenReleased(frc2::InstantCommand([this] { m_onboardIO.SetYellowLed(false); }, {}));
-}
-
-
-void RobotContainer::SetupInvokableCommands() {
-
-  m_invokableCommands.addCommands("STOP",       new InvokableCmdStop(&m_drive));
-  m_invokableCommands.addCommands("RESET_ODO",  new InvokableCmdResetOdo(&m_drive));
-  m_invokableCommands.addCommands("RED_ON",     new InvokableCmdRedLedOn(&m_redLED));
-  m_invokableCommands.addCommands("RED_OFF",    new InvokableCmdRedLedOff(&m_redLED));
-  m_invokableCommands.addCommands("YELLOW_ON",  new InvokableCmdYellowLedOn(&m_yellowLED));
-  m_invokableCommands.addCommands("YELLOW_OFF", new InvokableCmdYellowLedOff(&m_yellowLED));
-  m_invokableCommands.addCommands("GREEN_ON",   new InvokableCmdGreenLedOn(&m_greenLED));
-  m_invokableCommands.addCommands("GREEN_OFF",  new InvokableCmdGreenLedOff(&m_greenLED));
-
-  for ( auto i = 0 ; i < m_invokableCommands.getCommandCount() ; i++ ) {
-    std::cout << "CmdName[" << i << "] \"" << m_invokableCommands.getCommandName(i) << "\"" << std::endl;
-  }
 }
 
 

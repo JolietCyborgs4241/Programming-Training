@@ -60,7 +60,10 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
     static class frc2::SequentialCommandGroup AutoSeqCmd;
 
     // start off the command we'll return - we'll add to it as we go along
-    //AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
+    frc2::Command *stopCmd = new InvokableCmdStop(driveTrain);
+    //AutoSeqCmd.AddCommands(*stopCmd);
+
+    AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("STOP")->Execute(); }, {} ) );
 
 
     wpi::SmallString<64>    deployDir;
@@ -118,6 +121,25 @@ std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
 
 std::cout << "\"" << pathSegment << "\" is a command - adding to sequential command group" << std:: endl;
 
+          if (pathSegment == "RED_ON") {
+            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("RED_ON")->Execute(); }, {} ) );
+          }
+          if (pathSegment == "RED_OFF") {
+            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("RED_OFF")->Execute(); }, {} ) );
+          }
+          if (pathSegment == "GREEN_ON") {
+            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("GREEN_ON")->Execute(); }, {} ) );
+          }
+          if (pathSegment == "GREEN_OFF") {
+            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("GREEN_OFF")->Execute(); }, {} ) );
+          }
+          if (pathSegment == "YELLOW_ON") {
+            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("YELLOW_ON")->Execute(); }, {} ) );
+          }
+          if (pathSegment == "YELLOW_OFF") {
+            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("YELLOW_OFF")->Execute(); }, {} ) );
+          }
+
           //AutoSeqCmd.AddCommands( (*cmdPointer) );
 
         } else {
@@ -171,7 +193,7 @@ std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
 
     // end the sequence with a full stop - use our "STOP" command for consistency
 
-    //AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ArcadeDrive(0, 0); }, {} ) );
+    AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ArcadeDrive(0, 0); }, {} ) );
     //AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
 
     return &AutoSeqCmd;
