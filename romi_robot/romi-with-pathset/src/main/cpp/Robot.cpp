@@ -40,9 +40,9 @@ void Robot::AutonomousInit() {
     m_autonomousCommand->Schedule();
   }
 
-  m_container.m_redLED.Set(true);
-  m_container.m_yellowLED.Set(true);
-  m_container.m_greenLED.Set(true);
+  m_container.m_redLED.Set(false);
+  m_container.m_yellowLED.Set(false);
+  m_container.m_greenLED.Set(false);
 }
 
 void Robot::AutonomousPeriodic() {
@@ -57,20 +57,6 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
-  }
-
-  frc2::Command *cmdPtr;
-
-  if (cmdPtr = m_container.m_invokableCommands.getCommand("RED_ON")) {
-    cmdPtr->Schedule();
-  }
-
-  if (cmdPtr = m_container.m_invokableCommands.getCommand("YELLOW_OFF")) {
-    cmdPtr->Schedule();
-  }
-
-  if (cmdPtr = m_container.m_invokableCommands.getCommand("GREEN_ON")) {
-    cmdPtr->Schedule();
   }
 }
 

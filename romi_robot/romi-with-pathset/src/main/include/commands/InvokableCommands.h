@@ -3,38 +3,45 @@
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/SequentialCommandGroup.h>
 
-#include "subsystems/OnBoardIO.h"
-#include "subsystems/Drivetrain.h"
+#include <subsystems/OnBoardIO.h>
+#include <subsystems/Drivetrain.h>
 
 #include <string>
+#include <vector>
 
 
 using std::string;
 
 
-#define MAX_INVOKABLE_COMMANDS      10
+#define MAX_INVOKABLE_COMMANDS      20
 
 
 class InvokableCommands {
 
   public:
-    InvokableCommands();
+    InvokableCommands(Drivetrain *drive, frc::DigitalOutput *red,
+                                         frc::DigitalOutput *yellow,
+                                         frc::DigitalOutput *green);
 
-    void addCommands(string name, frc2::Command *command);
+    bool checkCommandName(string name);
 
-    string getCommandName(int i);
+    string getCommandName(int index);
 
-    int getCommandCount();
-
-    frc2::Command *getCommand(string name);
-    frc2::Command *getCommand(int i);
+    void addCommand(frc2::SequentialCommandGroup *cmdGroup, string cmdName);
 
   private:
 
-    int             m_cmdCount = 0;
-    string          m_names[MAX_INVOKABLE_COMMANDS];
-    frc2::Command   *m_commands[MAX_INVOKABLE_COMMANDS];
+    int                 m_cmdCount = 0;
+
+    string              m_cmdNames[MAX_INVOKABLE_COMMANDS];
+
+    Drivetrain          *m_drive;
+    frc::DigitalOutput  *m_redLED;
+    frc::DigitalOutput  *m_yellowLED;
+    frc::DigitalOutput  *m_greenLED;
 };
 
 
@@ -73,12 +80,12 @@ class InvokableCmdResetOdo
 };
 
 
-class InvokableCmdRedLedOn
-    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdRedLedOn> {
+class InvokableCmdRedLEDOn
+    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdRedLEDOn> {
 
     public:
 
-        explicit InvokableCmdRedLedOn(frc::DigitalOutput *io);
+        explicit InvokableCmdRedLEDOn(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -89,12 +96,12 @@ class InvokableCmdRedLedOn
         frc::DigitalOutput *m_io;
 };
 
-class InvokableCmdRedLedOff
-    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdRedLedOff> {
+class InvokableCmdRedLEDOff
+    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdRedLEDOff> {
 
     public:
 
-        explicit InvokableCmdRedLedOff(frc::DigitalOutput *io);
+        explicit InvokableCmdRedLEDOff(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -105,12 +112,12 @@ class InvokableCmdRedLedOff
         frc::DigitalOutput *m_io;
 };
 
-class InvokableCmdYellowLedOn
-    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdYellowLedOn> {
+class InvokableCmdYellowLEDOn
+    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdYellowLEDOn> {
 
     public:
 
-        explicit InvokableCmdYellowLedOn(frc::DigitalOutput *io);
+        explicit InvokableCmdYellowLEDOn(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -121,12 +128,12 @@ class InvokableCmdYellowLedOn
         frc::DigitalOutput *m_io;
 };
 
-class InvokableCmdYellowLedOff
-    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdYellowLedOff> {
+class InvokableCmdYellowLEDOff
+    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdYellowLEDOff> {
 
     public:
 
-        explicit InvokableCmdYellowLedOff(frc::DigitalOutput *io);
+        explicit InvokableCmdYellowLEDOff(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -136,12 +143,12 @@ class InvokableCmdYellowLedOff
         frc::DigitalOutput *m_io;
 };
 
-class InvokableCmdGreenLedOn
-    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdGreenLedOn> {
+class InvokableCmdGreenLEDOn
+    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdGreenLEDOn> {
 
     public:
 
-        explicit InvokableCmdGreenLedOn(frc::DigitalOutput *io);
+        explicit InvokableCmdGreenLEDOn(frc::DigitalOutput *io);
 
         void Initialize() override;
 
@@ -152,12 +159,12 @@ class InvokableCmdGreenLedOn
         frc::DigitalOutput *m_io;
 };
 
-class InvokableCmdGreenLedOff
-    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdGreenLedOff> {
+class InvokableCmdGreenLEDOff
+    : public frc2::CommandHelper<frc2::CommandBase, InvokableCmdGreenLEDOff> {
 
     public:
 
-        explicit InvokableCmdGreenLedOff(frc::DigitalOutput *io);
+        explicit InvokableCmdGreenLEDOff(frc::DigitalOutput *io);
 
         void Initialize() override;
 

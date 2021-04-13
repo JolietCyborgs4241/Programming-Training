@@ -59,11 +59,10 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
 
     static class frc2::SequentialCommandGroup AutoSeqCmd;
 
-    // start off the command we'll return - we'll add to it as we go along
-    frc2::Command *stopCmd = new InvokableCmdStop(driveTrain);
-    //AutoSeqCmd.AddCommands(*stopCmd);
+    cmds->addCommand(&AutoSeqCmd, "STOP");
 
-    AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("STOP")->Execute(); }, {} ) );
+    // start off the command we'll return - we'll add to it as we go along
+    //AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("STOP")->Schedule(); }, {} ) );
 
 
     wpi::SmallString<64>    deployDir;
@@ -104,10 +103,14 @@ frc2::Command *InitializeAutoSequence(string sequence, Drivetrain *driveTrain, I
     // go through all the paths in the first (and only) group
     for (auto pathIndex = 0; pathIndex < thisPath.getGroupPathsAvailable(0); pathIndex++) {
 
-        bool      status;
         string    pathSegment = thisPath.getGroupPath(0, pathIndex);;
 
 std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
+
+        // is it a comment - // at start of line?
+        if ("//" == pathSegment.substr(0,2)) {
+          continue;       // it's a comment so skip it
+        }
 
         // check is this is a known command - if not, we'll assume it's a path and generate
         // a ramsete command to handle it as a trajectory
@@ -115,38 +118,18 @@ std::cout << "pathSegment: \"" << pathSegment << "\"" << std::endl;
         // if it's a command, we'll skip over that and just add it to the sequential
         // command group we are building
 
-        frc2::Command *cmdPointer;
-
-        if ((cmdPointer = cmds->getCommand(pathSegment)) != nullptr) {
+        if (cmds->checkCommandName(pathSegment)) {
 
 std::cout << "\"" << pathSegment << "\" is a command - adding to sequential command group" << std:: endl;
-
-          if (pathSegment == "RED_ON") {
-            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("RED_ON")->Execute(); }, {} ) );
-          }
-          if (pathSegment == "RED_OFF") {
-            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("RED_OFF")->Execute(); }, {} ) );
-          }
-          if (pathSegment == "GREEN_ON") {
-            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("GREEN_ON")->Execute(); }, {} ) );
-          }
-          if (pathSegment == "GREEN_OFF") {
-            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("GREEN_OFF")->Execute(); }, {} ) );
-          }
-          if (pathSegment == "YELLOW_ON") {
-            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("YELLOW_ON")->Execute(); }, {} ) );
-          }
-          if (pathSegment == "YELLOW_OFF") {
-            AutoSeqCmd.AddCommands(frc2::InstantCommand([cmds] { cmds->getCommand("YELLOW_OFF")->Execute(); }, {} ) );
-          }
-
-          //AutoSeqCmd.AddCommands( (*cmdPointer) );
+          cmds->addCommand(&AutoSeqCmd, pathSegment);
 
         } else {
 
           // it's an actual path segment to get the JSON, create a trajectory, and create the ramsete command
 
 std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
+
+          bool status;
 
           auto trajectory = thisPath.getGroupSegTrajectory(0, pathIndex, status);
 
@@ -193,8 +176,7 @@ std::cout << "\"" << pathSegment << "\" is not a command" << std::endl;
 
     // end the sequence with a full stop - use our "STOP" command for consistency
 
-    AutoSeqCmd.AddCommands(frc2::InstantCommand([driveTrain] { driveTrain->ArcadeDrive(0, 0); }, {} ) );
-    //AutoSeqCmd.AddCommands(*(cmds->getCommand("STOP")));
+    cmds->addCommand(&AutoSeqCmd, "STOP");
 
     return &AutoSeqCmd;
 }

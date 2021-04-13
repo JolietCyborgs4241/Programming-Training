@@ -4,65 +4,7 @@
 
 
 
-// InvokableCommands implementation
-
-InvokableCommands::InvokableCommands() {
-    m_cmdCount = 0;
-}
-    
-    
-void InvokableCommands::addCommands(string name, frc2::Command *command) {
-  if (m_cmdCount < (MAX_INVOKABLE_COMMANDS - 1)) {
-      // room for at least one more
-      m_names[m_cmdCount]    = name;
-      m_commands[m_cmdCount] = command;
-
-      m_cmdCount++;
-  } else {
-      std::cerr << "InvokableCommands: No more space for commands - max # of commands is " << MAX_INVOKABLE_COMMANDS << std::endl;
-  }
-}
-
-
-int InvokableCommands::getCommandCount() {
-  return m_cmdCount;
-}
-
-
-frc2::Command *InvokableCommands::getCommand(string name) {
-
-  for (auto i = 0 ; i < m_cmdCount ; i++) {
-    if (m_names[i] == name) {
-      return m_commands[i];
-    }
-  }
-
-  return nullptr;
-}
-
-
-frc2::Command *InvokableCommands::getCommand(int index) {
-
-  if (index >= 0 && index < m_cmdCount) {
-    return m_commands[index];
-  }
-
-  return nullptr;
-}
-
-
-string InvokableCommands::getCommandName(int index) {
-
-  if (index >= 0 && index < m_cmdCount) {
-    return m_names[index];
-  }
-
-  return "";
-}
-
-
 // --------------------- commands ---------------------------
-
 
 //  stop utility command
 
@@ -97,103 +39,216 @@ bool InvokableCmdResetOdo::IsFinished() {
 
 // red led on utility command
 
-InvokableCmdRedLedOn::InvokableCmdRedLedOn(frc::DigitalOutput *io) : m_io(io) {
+InvokableCmdRedLEDOn::InvokableCmdRedLEDOn(frc::DigitalOutput *io) : m_io(io) {
   //AddRequirements({io});
 }
 
-void InvokableCmdRedLedOn::Initialize() {
-  std::cout << "InvokableCmdRedLedOn: Initialize()" << std::endl;
+void InvokableCmdRedLEDOn::Initialize() {
+  std::cout << "InvokableCmdRedLEDOn: Initialize()" << std::endl;
 
   m_io->Set(true);
 }
 
-bool InvokableCmdRedLedOn::IsFinished() { 
-
-            std::cout << "InvokableCmdRedLedOn: IsFinished()" << std::endl;
-
+bool InvokableCmdRedLEDOn::IsFinished() { 
   return true; 
 }
 
 
 // red led off utility command
 
-InvokableCmdRedLedOff::InvokableCmdRedLedOff(frc::DigitalOutput *io) : m_io(io) {
+InvokableCmdRedLEDOff::InvokableCmdRedLEDOff(frc::DigitalOutput *io) : m_io(io) {
   //AddRequirements({io});
 }
 
-void InvokableCmdRedLedOff::Initialize() {
+void InvokableCmdRedLEDOff::Initialize() {
+  std::cout << "InvokableCmdRedLEDOff: Initialize()" << std::endl;
+
   m_io->Set(false);
 }
 
-bool InvokableCmdRedLedOff::IsFinished() { 
+bool InvokableCmdRedLEDOff::IsFinished() { 
   return true; 
 }
 
 
 // yellow led on utility command
 
-InvokableCmdYellowLedOn::InvokableCmdYellowLedOn(frc::DigitalOutput *io) : m_io(io) {
+InvokableCmdYellowLEDOn::InvokableCmdYellowLEDOn(frc::DigitalOutput *io) : m_io(io) {
   //AddRequirements({io});
 }
 
-void InvokableCmdYellowLedOn::Initialize() {
-  std::cout << "InvokableCmdYellowLedOn: Initialize()" << std::endl;
+void InvokableCmdYellowLEDOn::Initialize() {
+  std::cout << "InvokableCmdYellowLEDOn: Initialize()" << std::endl;
 
   m_io->Set(true);
 }
 
-bool InvokableCmdYellowLedOn::IsFinished() { 
-  std::cout << "InvokableCmdYellowLedOn: IsFinished()" << std::endl;
-
+bool InvokableCmdYellowLEDOn::IsFinished() { 
   return true; 
 }
 
 
 // yellow led off utility command
 
-InvokableCmdYellowLedOff::InvokableCmdYellowLedOff(frc::DigitalOutput *io) : m_io(io) {
+InvokableCmdYellowLEDOff::InvokableCmdYellowLEDOff(frc::DigitalOutput *io) : m_io(io) {
   //AddRequirements({io});
 }
 
-void InvokableCmdYellowLedOff::Initialize() {
+void InvokableCmdYellowLEDOff::Initialize() {
+  std::cout << "InvokableCmdYellowLEDOff: Initialize()" << std::endl;
+
   m_io->Set(false);
 }
 
-bool InvokableCmdYellowLedOff::IsFinished() { 
+bool InvokableCmdYellowLEDOff::IsFinished() { 
   return true; 
 }
 
 
 // green led on utility command
 
-InvokableCmdGreenLedOn::InvokableCmdGreenLedOn(frc::DigitalOutput *io) : m_io(io) {
+InvokableCmdGreenLEDOn::InvokableCmdGreenLEDOn(frc::DigitalOutput *io) : m_io(io) {
   //AddRequirements({io});
 }
 
-void InvokableCmdGreenLedOn::Initialize() {
-  std::cout << "InvokableCmdGreenLedOn: Initialize()" << std::endl;
+void InvokableCmdGreenLEDOn::Initialize() {
+  std::cout << "InvokableCmdGreenLEDOn: Initialize()" << std::endl;
 
   m_io->Set(true);
 }
 
-bool InvokableCmdGreenLedOn::IsFinished() { 
-
-  std::cout << "InvokableCmdGreenLedOn: IsFinished()" << std::endl;
-
+bool InvokableCmdGreenLEDOn::IsFinished() { 
   return true; 
 }
 
 
 // green led off utility command
 
-InvokableCmdGreenLedOff::InvokableCmdGreenLedOff(frc::DigitalOutput *io) : m_io(io) {
+InvokableCmdGreenLEDOff::InvokableCmdGreenLEDOff(frc::DigitalOutput *io) : m_io(io) {
   //AddRequirements({io});
 }
 
-void InvokableCmdGreenLedOff::Initialize() {
+void InvokableCmdGreenLEDOff::Initialize() {
+  std::cout << "InvokableCmdGreenLEDOff: Initialize()" << std::endl;
+
   m_io->Set(false);
 }
 
-bool InvokableCmdGreenLedOff::IsFinished() { 
+bool InvokableCmdGreenLEDOff::IsFinished() { 
   return true; 
+}
+
+
+
+// InvokableCommands implementation
+
+
+static  string  commandNames[] = {
+                            "STOP",
+                            "RESET_ODO",
+                            "RED_ON",
+                            "RED_OFF",
+                            "YELLOW_ON",
+                            "YELLOW_OFF",
+                            "GREEN_ON",
+                            "GREEN_OFF",
+                            ""
+                        };
+
+
+InvokableCommands::InvokableCommands(Drivetrain *drive, frc::DigitalOutput *redLED,
+                                                        frc::DigitalOutput *yellowLED,
+                                                        frc::DigitalOutput *greenLED) :
+                                                             m_drive(drive),
+                                                             m_redLED(redLED),
+                                                             m_yellowLED(yellowLED),
+                                                             m_greenLED(greenLED)  {
+  int i;
+
+  for (i = 0 ; commandNames[i] != "" && i < MAX_INVOKABLE_COMMANDS ; i++) {
+    m_cmdNames[i] = commandNames[i];
+  }
+
+  if (i >= MAX_INVOKABLE_COMMANDS) {
+    std::cerr << "InvokableCommands::InvokableCommands(): Too many invokable commands - max of "
+              << MAX_INVOKABLE_COMMANDS << " permitted" << std::endl;
+  }
+
+  m_cmdCount = i;
+}
+
+
+void InvokableCommands::addCommand(frc2::SequentialCommandGroup *cmdGroup, string cmdName) {
+
+  // is it even a valid name?
+  if ( ! checkCommandName(cmdName)) {
+    std::cerr << "InvokableCommands::addCommand():  command \"" << cmdName << "\" not a known command" << std::endl;
+    return;
+  }
+
+  // for each command name, we create an appropriate comand and move it into the command group
+  //
+  // this takes care of object ownership issues when dealing with command points and the like
+  if (cmdName == "STOP") {
+
+    InvokableCmdStop  cmdStop(m_drive);
+    cmdGroup->AddCommands(std::move(cmdStop));
+
+  } else if (cmdName == "RESET_ODO") {
+
+    InvokableCmdResetOdo  cmdResetOdo(m_drive);
+    cmdGroup->AddCommands(std::move(cmdResetOdo));
+
+  } else if (cmdName == "RED_ON") {
+
+    InvokableCmdRedLEDOn  cmdRedLEDOn(m_redLED);
+    cmdGroup->AddCommands(std::move(cmdRedLEDOn));
+
+  } else if (cmdName == "RED_OFF") {
+
+    InvokableCmdRedLEDOff  cmdRedLEDOff(m_redLED);
+    cmdGroup->AddCommands(std::move(cmdRedLEDOff));
+
+  } else if (cmdName == "GREEN_ON") {
+
+    InvokableCmdGreenLEDOn  cmdGreenLEDOn(m_greenLED);
+    cmdGroup->AddCommands(std::move(cmdGreenLEDOn));
+
+  } else if (cmdName == "GREEN_OFF") {
+
+    InvokableCmdGreenLEDOff  cmdGreenLEDOff(m_greenLED);
+    cmdGroup->AddCommands(std::move(cmdGreenLEDOff));
+
+  } else if (cmdName == "YELLOW_ON") {
+
+    InvokableCmdYellowLEDOn  cmdYellowLEDOn(m_yellowLED);
+    cmdGroup->AddCommands(std::move(cmdYellowLEDOn));
+
+  } else if (cmdName == "YELLOW_OFF") {
+
+    InvokableCmdYellowLEDOff  cmdYellowLEDOff(m_yellowLED);
+    cmdGroup->AddCommands(std::move(cmdYellowLEDOff));
+  }
+}
+
+
+bool InvokableCommands::checkCommandName(string name) {
+
+  for (auto i = 0 ; i < m_cmdCount ; i++) {
+    if (m_cmdNames[i] == name) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+string InvokableCommands::getCommandName(int index) {
+
+  if (index < 0 || index >= m_cmdCount) {
+    return "";
+  } else {
+    return m_cmdNames[index];
+  }
 }

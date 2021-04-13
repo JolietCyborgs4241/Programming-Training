@@ -51,17 +51,10 @@ RobotContainer::RobotContainer() {
 
 void RobotContainer::SetupInvokableCommands() {
 
-  m_invokableCommands.addCommands("STOP",       new InvokableCmdStop(&m_drive));
-  m_invokableCommands.addCommands("RESET_ODO",  new InvokableCmdResetOdo(&m_drive));
-  m_invokableCommands.addCommands("RED_ON",     new InvokableCmdRedLedOn(&m_redLED));
-  m_invokableCommands.addCommands("RED_OFF",    new InvokableCmdRedLedOff(&m_redLED));
-  m_invokableCommands.addCommands("YELLOW_ON",  new InvokableCmdYellowLedOn(&m_yellowLED));
-  m_invokableCommands.addCommands("YELLOW_OFF", new InvokableCmdYellowLedOff(&m_yellowLED));
-  m_invokableCommands.addCommands("GREEN_ON",   new InvokableCmdGreenLedOn(&m_greenLED));
-  m_invokableCommands.addCommands("GREEN_OFF",  new InvokableCmdGreenLedOff(&m_greenLED));
+  m_invokableCommands = new InvokableCommands(&m_drive, &m_redLED, &m_yellowLED, &m_greenLED);
 
-  for ( auto i = 0 ; i < m_invokableCommands.getCommandCount() ; i++ ) {
-    std::cout << "CmdName[" << i << "] \"" << m_invokableCommands.getCommandName(i) << "\"" << std::endl;
+  for ( auto i = 0 ; m_invokableCommands->getCommandName(i) != "" ; i++ ) {
+    std::cout << "CmdName[" << i << "] \"" << m_invokableCommands->getCommandName(i) << "\"" << std::endl;
   }
 }
 
@@ -72,6 +65,7 @@ void RobotContainer::ConfigureButtonBindings() {
       &m_drive, [this] { return -m_controller.GetRawAxis(1); },
       [this] { return m_controller.GetRawAxis(3); }));
 
+#ifdef NEVER
   // Example of how to use the onboard IO
   m_onboardButtonA.WhenPressed(m_invokableCommands.getCommand("RED_ON"))
       .WhenReleased(m_invokableCommands.getCommand("RED_OFF"));
@@ -81,6 +75,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
   m_onboardButtonC.WhenPressed(m_invokableCommands.getCommand("GREEN_ON"))
       .WhenReleased(m_invokableCommands.getCommand("GREEN_OFF"));
+#endif
 
   //m_onboardButtonA.WhenPressed(frc2::InstantCommand([this] { m_onboardIO.SetYellowLed(true); }, {} ))
   //    .WhenReleased(frc2::InstantCommand([this] { m_onboardIO.SetYellowLed(false); }, {}));
@@ -148,5 +143,5 @@ void RobotContainer::SetupAutoChooser() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 
-      return InitializeAutoSequence(m_chooser.GetSelected(), &m_drive, &m_invokableCommands);
+      return InitializeAutoSequence(m_chooser.GetSelected(), &m_drive, m_invokableCommands);
 }

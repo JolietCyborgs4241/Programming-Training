@@ -43,7 +43,7 @@ class RobotContainer {
   RobotContainer();
   frc2::Command* GetAutonomousCommand();
 
-  InvokableCommands m_invokableCommands;
+  InvokableCommands *m_invokableCommands;
 
   OnBoardIO m_onboardIO{OnBoardIO::ChannelMode::INPUT,
                         OnBoardIO::ChannelMode::INPUT};
