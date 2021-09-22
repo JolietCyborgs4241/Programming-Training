@@ -46,16 +46,15 @@ public class Main
 
         System.out.print(" }"); 
     }
-    
+     
     static void runTest(int[] array, int trial)
     {
     	String line_adjustment = ""; //Adjust a printed line based on the lengths of the arrays
-    	int[] updated_array = new zeros_to_the_front().getUpdatedArray(array); 
 
         System.out.print("Test " + trial + " -> BEFORE: ");
         displayArray(array); 
         System.out.print(line_adjustment + "	    AFTER: "); 
-        displayArray(updated_array);
+        displayArray(new zeros_to_the_front().getUpdatedArray(array));
         System.out.println("\n");
     }
 
