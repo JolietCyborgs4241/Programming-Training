@@ -17,6 +17,15 @@ public class zeros_to_the_front
         // all you need is the array and length of the array to write the programe;
         // these variable are already declared above. 
 
-        // write code here:
+        // write code here: 
+    	if(true)
+    	
+    	for(int i = 0; i > length ; i++)
+    	{
+    		if(array[i] == 0)
+    		{
+    			
+    		}
+    	}
     }
 }
