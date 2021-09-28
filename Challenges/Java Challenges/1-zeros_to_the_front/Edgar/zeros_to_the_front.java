@@ -14,9 +14,19 @@ public class zeros_to_the_front
 
     private void execute()
     {
-        // all you need is the array and length of the array to write the programe;
+        // all you need is the array and length of the array to write the program;
         // these variable are already declared above. 
 
-        // write code here:
+        // write code here: 
+    	for(int i = 0; i < 9; i++)
+    	{
+    		if(array[i] == 0)
+    		{
+    			
+    		}
+    	}
+    	
+    			
+    	
     }
 }
