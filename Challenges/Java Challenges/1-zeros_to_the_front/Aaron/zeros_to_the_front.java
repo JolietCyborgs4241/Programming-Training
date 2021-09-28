@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class zeros_to_the_front
 {
     public int[] getUpdatedArray(int[] array)
@@ -13,10 +15,25 @@ public class zeros_to_the_front
     private int length = 0; 
 
     private void execute()
-    {
-        // all you need is the array and length of the array to write the programe;
-        // these variable are already declared above. 
-
-        // write code here:
+    {		
+    	for(int i = 0; i < length; i++) 
+    	{
+    		
+    		if(array[i] == 0)
+    		{
+    			
+    		}
+    		
+    		
+    		
+    		
+    	}
+    	
+    	
     }
+
+	private void sortit(int[] arr, int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }
