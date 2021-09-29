@@ -18,13 +18,14 @@ public class zeros_to_the_front
         // these variable are already declared above. 
 
         // write code here: 
-    	if(true)
+    	
+    	int 
     	
     	for(int i = 0; i > length ; i++)
     	{
     		if(array[i] == 0)
     		{
-    			
+    		array[i] =
     		}
     	}
     }
